@@ -3,6 +3,7 @@ Main file
 """
 
 from re import U
+from pprint import pprint
 import gspread
 import datetime
 import os.path
@@ -27,25 +28,27 @@ class User:
     """
     Base user class that will pull data from Google Sheets when called.
     """
-    def __init__(self, username, email, athlete_type):
+    def __init__(self, username, email, first_name, last_name, athlete_type):
         self.username = username
         self.email = email
+        self.first_name = first_name
+        self.last_name = last_name
         self.athlete_type = athlete_type
 
 class Workout_User(User):
     """
     Workout user class that has an extra "workouts left" attribute that counts how many times they can work out.
     """
-    def __init__(self, username, email, athlete_type, workouts_left):
-        super().__init__(username, email, athlete_type)
+    def __init__(self, username, email, first_name, last_name, athlete_type, workouts_left):
+        super().__init__(username, email, first_name, last_name, athlete_type)
         self.workouts_left = workouts_left
 
 class Martial_Arts_User(User):
     """
     Martial arts user class that has the user's athlete group, which dictates which dates they will join."
     """
-    def __init__(self, username, email, athlete_type, athlete_group):
-        super().__init__(username, email, athlete_type)
+    def __init__(self, username, email, first_name, last_name, athlete_type, athlete_group):
+        super().__init__(username, email, first_name, last_name, athlete_type)
         self.athlete_group = athlete_group
 
 def welcome():
@@ -82,20 +85,32 @@ def sign_in():
     emails = SHEET.worksheet("users").col_values(2)
     print(emails)
     index = 0
+    user_class = {}
 
     for ind in usernames:
-        index += 1
         if username == ind:
-            print(index)
-            email = input("Please provide your email:\n")
-            if email == emails[index-1]:
-                print("Sign in successful!\n")
-                user_actions(username)
-            else:
-                print("Email incorrect. Please try again!")
-                continue
+            user_class = update_user_class(index+2)
+    
+    pprint(vars(user_class))
 
-def update_user_class():
+    # for ind in usernames:
+    #     index += 1
+    #     if username == ind:
+    #         print(index)
+    #         email = input("Please provide your email:\n")
+    #         if email == emails[index-1]:
+    #             print("Sign in successful!\n")
+    #             user_actions(username)
+    #         else:
+    #             print("Email incorrect. Please try again!")
+    #             continue
+
+def update_user_class(ind):
+    print(ind)
+    values = SHEET.worksheet("users").row_values(ind)
+    if values[4] == "workout":
+        user_class = Workout_User(values[0], values[1], values[2], values[3], values[4], values[5])
+        return user_class
 
 
 def main():

@@ -20,11 +20,13 @@ def welcome():
     elif user_answer.lower() == "s":
         sign_up()
     else:
-        
+        print(f"{user_answer} is not an acceptable key. Please choose a correct one.")
 
 
 def main():
     """
     Main function used to run all necessary program functions.
     """
+    welcome()
 
+main()

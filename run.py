@@ -23,6 +23,31 @@ SHEET = GSPREAD_CLIENT.open("trxtreme")
 CALENDAR = build("calendar", "v3", credentials = CREDS)
 CALENDAR_ID = "trxtreme2021@gmail.com"
 
+class User:
+    """
+    Base user class that will pull data from Google Sheets when called.
+    """
+    def __init__(self, username, email, athlete_type):
+        self.username = username
+        self.email = email
+        self.athlete_type = athlete_type
+
+class Workout_User(User):
+    """
+    Workout user class that has an extra "workouts left" attribute that counts how many times they can work out.
+    """
+    def __init__(self, username, email, athlete_type, workouts_left):
+        super().__init__(username, email, athlete_type)
+        self.workouts_left = workouts_left
+
+class Martial_Arts_User(User):
+    """
+    Martial arts user class that has the user's athlete group, which dictates which dates they will join."
+    """
+    def __init__(self, username, email, athlete_type, athlete_group):
+        super().__init__(username, email, athlete_type)
+        self.athlete_group = athlete_group
+
 def welcome():
     """
     Welcome function used to provide user with choice of admin/athlete sign in, or sign up.
@@ -68,7 +93,10 @@ def sign_in():
                 user_actions(username)
             else:
                 print("Email incorrect. Please try again!")
-            
+                continue
+
+def update_user_class():
+
 
 def main():
     """

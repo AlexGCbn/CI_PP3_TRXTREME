@@ -48,24 +48,6 @@ def welcome():
         else:
             print(f"{user_answer} is not an acceptable key. Please choose a correct one.\n")
 
-            
-def check_credential(credential, type):
-    """
-    Checks if username exists in the first column of the users worksheet.
-    """
-    if type == "username":
-        values = SHEET.worksheet("users").col_values(1)
-        if username in values:
-            return True
-        else:
-            return False
-    elif type == "email":
-        values = SHEET.worksheet("users").col_values(2)
-        if username in values:
-            return True
-        else:
-            return False
-
 def sign_in():
     """
     Sign in function. Calls username check function and then asks for email.

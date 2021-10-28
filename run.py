@@ -2,6 +2,7 @@
 Main file
 """
 
+from re import U
 import gspread
 import datetime
 import os.path
@@ -48,22 +49,44 @@ def welcome():
             print(f"{user_answer} is not an acceptable key. Please choose a correct one.\n")
 
             
-def check_username(username):
+def check_credential(credential, type):
     """
     Checks if username exists in the first column of the users worksheet.
     """
-    values = SHEET.worksheet("users").col_values(1)
-    if username in values:
-        return True
-    else:
-        return False
+    if type == "username":
+        values = SHEET.worksheet("users").col_values(1)
+        if username in values:
+            return True
+        else:
+            return False
+    elif type == "email":
+        values = SHEET.worksheet("users").col_values(2)
+        if username in values:
+            return True
+        else:
+            return False
 
 def sign_in():
+    """
+    Sign in function. Calls username check function and then asks for email.
+    """
     username = input("Enter username:\n")
-    user_exists = check_username(username)
-    if user_exists:
+    usernames = SHEET.worksheet("users").col_values(1)
+    emails = SHEET.worksheet("users").col_values(2)
+    print(emails)
+    index = 0
 
-
+    for ind in usernames:
+        index += 1
+        if username == ind:
+            print(index)
+            email = input("Please provide your email:\n")
+            if email == emails[index-1]:
+                print("Sign in successful!\n")
+                user_actions(username)
+            else:
+                print("Email incorrect. Please try again!")
+            
 
 def main():
     """

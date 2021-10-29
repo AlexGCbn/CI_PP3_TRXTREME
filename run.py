@@ -51,30 +51,31 @@ class Martial_Arts_User(User):
         super().__init__(username, email, first_name, last_name, athlete_type)
         self.athlete_group = athlete_group
 
-def welcome():
+def successful_sign_in(user_class):
     """
-    Welcome function used to provide user with choice of admin/athlete sign in, or sign up.
-    Calls appropriate functions according to user choice.
+    Uses user class to determine what choices to provide to user.
+    For workout users, provides the option to sign up for a workout or see their information.
+    For martial arts athletes, provides details and next workout directly.
     """
-    print("Welcome to TRXtreme.\n")
+    choice = ""
 
-    while True:
-        print("To sign in as a user, please input the letter u and enter.")
-        print("To sign in as admin, please input the letter a and enter.")
-        print("To sign up, please input the letter s and enter.\n")
-        
-        user_answer = input("Enter choice:\n")
+    if user_class.athlete_type == "workout":
+        choice = input(f"Welcome {user_class.first_name}! Input 1 if you want to sign up for a workout or 2 if you want to see how many you have left for the month:\n")
+        if choice == "1":
+            date = input("Please provide date in format 'YYYY-MM-DD':\n")
+            date += "T23:59:59Z"
+            print(date)
 
-        if user_answer.lower() == "u":
-            sign_in()
-        elif user_answer.lower() == "a":
-            admin_sign_in()
-        elif user_answer.lower() == "s":
-            sign_up()
-        elif user_answer.lower() == "exit":
-            break
-        else:
-            print(f"{user_answer} is not an acceptable key. Please choose a correct one.\n")
+def update_user_class(ind):
+    """
+    Uses the passed index number to find user on Google Sheet and create the user object.
+    """
+    values = SHEET.worksheet("users").row_values(ind)
+    if values[4] == "workout":
+        user_class = Workout_User(values[0], values[1], values[2], values[3], values[4], values[5])
+    elif values[4] == "martial-arts":
+        user_class = Martial_Arts_User(values[0], values[1], values[2], values[3], values[4], values[6])
+    return user_class
 
 def sign_in():
     """
@@ -95,26 +96,43 @@ def sign_in():
     
     email = input("Please input your email:\n")
 
-    while email != user_class.email:
-        email = input("Email incorrect. Please try again, or type 'exit' to go to main page.\n")
-        if email == "exit":
+    if email != user_class.email:
+        while True:
+            email = input("Email incorrect. Please try again, or type 'exit' to go to main page.\n")
+            if email == "exit":
+                welcome()
+            elif email == user_class.email:
+                break
+    elif email == user_class.email:
+        successful_sign_in(user_class)
+
+def welcome():
+    """
+    Welcome function used to provide user with choice of admin/athlete sign in, or sign up.
+    Calls appropriate functions according to user choice.
+    """
+    print("Welcome to TRXtreme.\n")
+
+    while True:
+        print("To sign in as a user, please input the letter u and enter.")
+        print("To sign in as admin, please input the letter a and enter.")
+        print("To sign up, please input the letter s and enter.\n")
+        
+        user_answer = input("Enter choice:\n")
+
+        if user_answer.lower() == "u":
+            sign_in()
             break
-        elif email == user_class.email:
-            print("Login successful!")
+        elif user_answer.lower() == "a":
+            admin_sign_in()
+            break
+        elif user_answer.lower() == "s":
+            sign_up()
+            break
+        elif user_answer.lower() == "exit":
+            break
         else:
-            continue
-
-def update_user_class(ind):
-    """
-    Uses the passed index number to find user on Google Sheet and create the user object.
-    """
-    values = SHEET.worksheet("users").row_values(ind)
-    if values[4] == "workout":
-        user_class = Workout_User(values[0], values[1], values[2], values[3], values[4], values[5])
-    elif values[4] == "martial-arts":
-        user_class = Martial_Arts_User(values[0], values[1], values[2], values[3], values[4], values[6])
-    return user_class
-
+            print(f"{user_answer} is not an acceptable key. Please choose a correct one.\n")
 
 def main():
     """

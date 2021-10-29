@@ -78,7 +78,9 @@ def welcome():
 
 def sign_in():
     """
-    Sign in function. Calls username check function and then asks for email.
+    Sign in function. Uses username to check if user exists on Google Sheet.
+    If user exists, calls the function update_user_class to create the user object.
+    Uses the email there to verify the user.
     """
     username = input("Enter username:\n")
     usernames = SHEET.worksheet("users").col_values(1)
@@ -103,7 +105,9 @@ def sign_in():
             continue
 
 def update_user_class(ind):
-    print(ind)
+    """
+    Uses the passed index number to find user on Google Sheet and create the user object.
+    """
     values = SHEET.worksheet("users").row_values(ind)
     if values[4] == "workout":
         user_class = Workout_User(values[0], values[1], values[2], values[3], values[4], values[5])

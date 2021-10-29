@@ -82,35 +82,34 @@ def sign_in():
     """
     username = input("Enter username:\n")
     usernames = SHEET.worksheet("users").col_values(1)
-    emails = SHEET.worksheet("users").col_values(2)
-    print(emails)
+    email = ""
     index = 0
     user_class = {}
 
     for ind in usernames:
         if username == ind:
             user_class = update_user_class(index+2)
+            break
     
-    pprint(vars(user_class))
+    email = input("Please input your email:\n")
 
-    # for ind in usernames:
-    #     index += 1
-    #     if username == ind:
-    #         print(index)
-    #         email = input("Please provide your email:\n")
-    #         if email == emails[index-1]:
-    #             print("Sign in successful!\n")
-    #             user_actions(username)
-    #         else:
-    #             print("Email incorrect. Please try again!")
-    #             continue
+    while email != user_class.email:
+        email = input("Email incorrect. Please try again, or type 'exit' to go to main page.\n")
+        if email == "exit":
+            break
+        elif email == user_class.email:
+            print("Login successful!")
+        else:
+            continue
 
 def update_user_class(ind):
     print(ind)
     values = SHEET.worksheet("users").row_values(ind)
     if values[4] == "workout":
         user_class = Workout_User(values[0], values[1], values[2], values[3], values[4], values[5])
-        return user_class
+    elif values[4] == "martial-arts":
+        user_class = Martial_Arts_User(values[0], values[1], values[2], values[3], values[4], values[6])
+    return user_class
 
 
 def main():

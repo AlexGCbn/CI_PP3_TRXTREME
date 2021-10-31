@@ -130,9 +130,9 @@ def update_user_class(ind):
 
 def verify_username():
     """
-    Sign in function. Uses username to check if user exists on Google Sheet.
+    Uses username to check if user exists on Google Sheet.
     If user exists, calls the function update_user_class to create the user object.
-    Uses the email there to verify the user.
+    Then it calls the email verification function.
     """
     username = input("Enter username or 'exit' to return to menu:\n")
     usernames = SHEET.worksheet("users").col_values(1)
@@ -156,6 +156,10 @@ def verify_username():
     
 
 def verify_email(user_class):
+    """
+    Takes the user object, asks the user for the email and verifies if it is correct.
+    If so, it passes the user object to the next function.
+    """
     email = ""
     email = input("Please input your email:\n")
 

@@ -8,6 +8,8 @@ import gspread
 import datetime
 import os.path
 from googleapiclient.discovery import build
+from google_auth_oauthlib.flow import InstalledAppFlow
+from google.auth.transport.requests import Request
 from google.oauth2.service_account import Credentials
 
 SCOPE = [
@@ -62,9 +64,23 @@ def successful_sign_in(user_class):
     if user_class.athlete_type == "workout":
         choice = input(f"Welcome {user_class.first_name}! Input 1 if you want to sign up for a workout or 2 if you want to see how many you have left for the month:\n")
         if choice == "1":
-            date = input("Please provide date in format 'YYYY-MM-DD':\n")
-            date += "T23:59:59Z"
-            print(date)
+            # date = input("Please provide date in format 'YYYY-MM-DD':\n")
+            # date += "T23:59:59B"
+            # print(date)
+            # events = 
+            now = datetime.datetime.utcnow().isoformat() + "Z"
+            print(now)
+            print("Getting upcoming events")
+            events_result = CALENDAR.events().list(calendarId=CALENDAR_ID, timeMin=now, maxResults=10, singleEvents = False).execute()
+            events = events_result.get('items', [])
+
+            
+            if not events:
+                print('No upcoming events found.')
+            for event in events:
+                if "TRX" in event['summary'] or "Cross Training" in event['summary']:
+                    start = event['start'].get('dateTime', event['start'].get('date'))
+                    print(start.replace("T", " ").replace(":00+03:00", ""), event['summary'])
 
 def update_user_class(ind):
     """
@@ -101,7 +117,9 @@ def sign_in():
             email = input("Email incorrect. Please try again, or type 'exit' to go to main page.\n")
             if email == "exit":
                 welcome()
+                break
             elif email == user_class.email:
+                successful_sign_in(user_class)
                 break
     elif email == user_class.email:
         successful_sign_in(user_class)

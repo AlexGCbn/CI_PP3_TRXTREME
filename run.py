@@ -65,14 +65,10 @@ def successful_sign_in(user_class):
     if user_class.athlete_type == "workout":
         choice = input(f"Welcome {user_class.first_name}! Input 1 if you want to sign up for a workout or 2 if you want to see how many you have left for the month:\n")
         if choice == "1":
-            # date = input("Please provide date in format 'YYYY-MM-DD':\n")
-            # date += "T23:59:59B"
-            # print(date)
-            # events = 
             now = datetime.datetime.utcnow().isoformat() + "Z"
             print(now)
             print("Getting upcoming events")
-            events_result = CALENDAR.events().list(calendarId=CALENDAR_ID, timeMin=now, maxResults=20, singleEvents = False).execute()
+            events_result = CALENDAR.events().list(calendarId=CALENDAR_ID, timeMin=now, maxResults=20, singleEvents=True, orderBy="startTime").execute()
             events = events_result.get('items', [])
 
             index = 0
@@ -85,30 +81,31 @@ def successful_sign_in(user_class):
                     index += 1
                     events_list.append(event['id'])
                     start = event['start'].get('dateTime', event['start'].get('date'))
-                    print(index, "-", start.replace("T", " ").replace(":00+03:00", ""), event['summary'])
+                    print(index, "-", start.replace("T", " ").replace(":00+02:00", ""), event['summary'])
             
             choice = input("Please input the number of the workout you choose from above:\n")
             event_id = events_list[int(choice)-1]
             chosen_workout = CALENDAR.events().get(calendarId=CALENDAR_ID, eventId=events_list[int(choice)-1]).execute()
             start = chosen_workout['start'].get('dateTime', chosen_workout['start'].get('date'))
-            start = start.replace("T", " ").replace(":00+03:00", "")
+            start = start.replace("T", " ").replace(":00+02:00", "")
             print("You chose the following workout:\n")
             print(f"Name: {chosen_workout['summary']}, Date: {start}")
             new_choice = input("Do you want to register? Y/N\n")
             if new_choice.lower() == 'y':
-                update_event_attendees(event_id, "sign_up", user_class.first_name, user_class.last_name, user_class.email)
+                update_event_attendees(event_id, "sign_up", user_class.user_id)
 
-def update_event_attendees(event_id, operation, first_name, last_name, email, user_id):
+def update_event_attendees(event_id, operation, user_id):
     event = CALENDAR.events().get(calendarId=CALENDAR_ID, eventId=event_id).execute()
     if operation == "sign_up":
-        # add_attendee = {
-        #     "displayName": first_name + " " + last_name,
-        #     "email": email
-        # }
-        attendees = event.get('description')
-        attendees.append("+"+user_id)
-        event['description'] = attendees
-        print("Updating attendees...\n")
+        if event['description']:
+            attendees = event.get('description')
+            attendees += user_id + "+"
+
+            event['description'] = attendees
+            print("Updating attendees...\n")
+        else:
+            attendees = user_id + "+"
+            event['description'] = attendees
         try:
             event = CALENDAR.events().update(calendarId=CALENDAR_ID, eventId=event_id, body=event).execute()
             print(event['description'])

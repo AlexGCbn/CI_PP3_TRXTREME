@@ -71,16 +71,50 @@ def successful_sign_in(user_class):
             now = datetime.datetime.utcnow().isoformat() + "Z"
             print(now)
             print("Getting upcoming events")
-            events_result = CALENDAR.events().list(calendarId=CALENDAR_ID, timeMin=now, maxResults=10, singleEvents = False).execute()
+            events_result = CALENDAR.events().list(calendarId=CALENDAR_ID, timeMin=now, maxResults=20, singleEvents = False).execute()
             events = events_result.get('items', [])
 
-            
+            index = 0
+            events_list = []
+
             if not events:
                 print('No upcoming events found.')
             for event in events:
                 if "TRX" in event['summary'] or "Cross Training" in event['summary']:
+                    index += 1
+                    events_list.append(event['id'])
                     start = event['start'].get('dateTime', event['start'].get('date'))
-                    print(start.replace("T", " ").replace(":00+03:00", ""), event['summary'])
+                    print(index, "-", start.replace("T", " ").replace(":00+03:00", ""), event['summary'])
+            
+            choice = input("Please input the number of the workout you choose from above:\n")
+            event_id = events_list[int(choice)-1]
+            chosen_workout = CALENDAR.events().get(calendarId=CALENDAR_ID, eventId=events_list[int(choice)-1]).execute()
+            start = chosen_workout['start'].get('dateTime', chosen_workout['start'].get('date'))
+            start = start.replace("T", " ").replace(":00+03:00", "")
+            print("You chose the following workout:\n")
+            print(f"Name: {chosen_workout['summary']}, Date: {start}")
+            new_choice = input("Do you want to register? Y/N\n")
+            if new_choice.lower() == 'y':
+                update_event_attendees(event_id, "sign_up", user_class.first_name, user_class.last_name, user_class.email)
+
+def update_event_attendees(event_id, operation, first_name, last_name, email):
+    event = CALENDAR.events().get(calendarId=CALENDAR_ID, eventId=event_id).execute()
+    if operation == "sign_up":
+        add_attendee = {
+            "displayName": first_name + " " + last_name,
+            "email": email
+        }
+        attendees = event.get('attendees', [])
+        attendees.append(add_attendee)
+        event['attendees'] = attendees
+        print("Updating attendees...\n")
+        try:
+            event = CALENDAR.events().update(calendarId=CALENDAR_ID, eventId=event_id, body=event).execute()
+            print(event['attendees'])
+        except Exception as e:
+            print(e)
+        return print('Finished updating attendees')
+            
 
 def update_user_class(ind):
     """
@@ -109,6 +143,12 @@ def sign_in():
         if username == ind:
             user_class = update_user_class(index+2)
             break
+        elif username == "exit":
+            welcome()
+            break
+        else:
+            print("Username incorrect, please try again or type 'exit' to go to main page.\n")
+            sign_in()
     
     email = input("Please input your email:\n")
 
@@ -148,7 +188,7 @@ def welcome():
             sign_up()
             break
         elif user_answer.lower() == "exit":
-            break
+            quit()
         else:
             print(f"{user_answer} is not an acceptable key. Please choose a correct one.\n")
 

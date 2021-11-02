@@ -67,6 +67,30 @@ def successful_sign_in(user_class):
         choice = input(f"Welcome {user_class.first_name}! Input 1 if you want to sign up for a workout or 2 if you want to see how many you have left for the month:\n")
         if choice == "1":
             workout_sign_up(user_class)
+        elif choice == "2":
+            display_user_data(user_class)
+    elif user_class.athlete_type == "martial arts":
+        display_user_data(user_class)
+
+def display_user_data(user_class):
+    """
+    Provides information to user about their profile depending on their type.
+    """
+    if user_class.athlete_type == "workout":
+        print(f"Hello {user_class.first_name} {user_class.last_name}! Your remaining workouts are {user_class.workouts_left}")
+    elif user_class.athlete_type == "martial arts":
+        print(f"Hello {user_class.first_name} {user_class.last_name}! Your group is {user_class.athlete_group}")
+
+        now = datetime.datetime.utcnow().isoformat() + "Z"
+        events_list = []
+
+        if user_class.athlete_group == "Junior 1":
+            event_result = CALENDAR.events().list(calendarId=CALENDAR_ID, timeMin=now, maxResults=1, singleEvents=True, q="Junior 1").execute()
+            event = event_result.get('items', [])
+            events_list.append(event['id'])
+            start = event['start'].get('dateTime', event['start'].get('date'))
+            start = start.replace("T", " ").replace(":00+02:00", "")
+            print(f"Your next training session is on: {start}")
 
 def workout_sign_up(user_class):
     """
@@ -142,7 +166,7 @@ def update_user_class(ind):
     values = SHEET.worksheet("users").row_values(ind)
     if values[4] == "workout":
         user_class = Workout_User(values[0], values[1], values[2], values[3], values[4], values[5])
-    elif values[4] == "martial-arts":
+    elif values[4] == "martial arts":
         user_class = Martial_Arts_User(values[0], values[1], values[2], values[3], values[4], values[6])
     return user_class
 

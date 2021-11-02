@@ -11,6 +11,7 @@ from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 from google.oauth2.service_account import Credentials
+from pyasn1.type.univ import Null
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -23,6 +24,7 @@ CREDS = Credentials.from_service_account_file("creds.json")
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open("trxtreme")
+SHEET_ID = "1izyPTgGIt_uKegNn2I0lFUdrAuXPJisNeXgvzN2EG_g"
 CALENDAR = build("calendar", "v3", credentials = CREDS)
 CALENDAR_ID = "trxtreme2021@gmail.com"
 
@@ -67,6 +69,11 @@ def successful_sign_in(user_class):
             workout_sign_up(user_class)
 
 def workout_sign_up(user_class):
+    """
+    Gets next 20 events. Filters events to find only workouts and then presents a list to user.
+    When user picks an event, asks to confirm. If confirmed, calls the event attendees update function.
+    Uses 'now' to get UTC+0 timestamp. Events are presented in GSheet time.
+    """
     now = datetime.datetime.utcnow().isoformat() + "Z"
     print(now)
     print("Getting upcoming events")
@@ -95,11 +102,38 @@ def workout_sign_up(user_class):
     new_choice = input("Do you want to register? Y/N\n")
     if new_choice.lower() == 'y':
         update_event_attendees(event_id, "sign_up", user_class)
+    elif new_choice.lower() == "n":
+        successful_sign_in(user_class)
 
-def update_event_attendees(event_id, operation):
-    event = CALENDAR.events().get(calendarId=CALENDAR_ID, eventId=event_id).execute()
+def update_event_attendees(event_id, operation, user_class):
+    """
+    Checks to see if there is a worksheet with the event ID as name. 
+    If not, creates one.
+    If there is, adds username to worksheet.
+    """
     if operation == "sign_up":
-            
+        try:
+            sheet_check = SHEET.worksheet(event_id)
+        except:
+            sheet_check = Null
+        if sheet_check == Null:
+            # Credits to: https://learndataanalysis.org/add-new-worksheets-to-existing-google-sheets-file-with-google-sheets-api/
+            new_sheet = {
+                "requests": [{
+                    "addSheet": {
+                        "properties": {
+                            "title": event_id
+                        }
+                    }
+                }]
+            }
+            SHEET.batch_update(body=new_sheet)
+        print("Signing up for workout...\n")
+        updated_worksheet = SHEET.worksheet(event_id)
+        updated_worksheet.append_row([user_class.username])
+        print("Successfully signed up for workout! Returning to main menu.\n")
+        welcome()
+        
 
 def update_user_class(ind):
     """

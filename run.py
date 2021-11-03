@@ -85,11 +85,12 @@ def display_user_data(user_class):
         events_list = []
 
         if user_class.athlete_group == "Junior 1":
-            event_result = CALENDAR.events().list(calendarId=CALENDAR_ID, timeMin=now, maxResults=1, singleEvents=True, q="Junior 1").execute()
-            event = event_result.get('items', [])
-            events_list.append(event['id'])
-            start = event['start'].get('dateTime', event['start'].get('date'))
-            start = start.replace("T", " ").replace(":00+02:00", "")
+            events_result = CALENDAR.events().list(calendarId=CALENDAR_ID, timeMin=now, maxResults=1, singleEvents=True, q="Junior 1").execute()
+            events = events_result.get('items', [])
+            for event in events:
+                events_list.append(event['id'])
+                start = event['start'].get('dateTime', event['start'].get('date'))
+                start = start.replace("T", " ").replace(":00+02:00", "")
             print(f"Your next training session is on: {start}")
 
 def workout_sign_up(user_class):

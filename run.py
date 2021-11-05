@@ -55,6 +55,10 @@ class Martial_Arts_User(User):
         super().__init__(username, email, first_name, last_name, athlete_type)
         self.athlete_group = athlete_group
 
+"""
+START OF USER ACTIONS -------------------------------------------------------------------------
+"""
+
 def successful_sign_in(user_class):
     """
     Uses user class to determine what choices to provide to user.
@@ -202,7 +206,10 @@ def update_event_attendees(event_id, operation, user_class):
             print("Successfully signed up for workout! Returning to main menu.")
             print("!!!\n")
             welcome()
-        
+
+"""
+END OF USER ACTIONS -------------------------------------------------------------------------
+"""
 
 def update_user_class(ind):
     """
@@ -261,6 +268,82 @@ def verify_email(user_class):
                 break
     elif email == user_class.email:
         successful_sign_in(user_class)
+
+"""
+START OF SIGN UP
+"""
+
+def sign_up():
+    """
+    Creates a new user from the parameters provided.
+    """
+    print("Are you signing up for workouts or martial arts?")
+    choice = input("Please input 1 for workouts and 2 for martial arts:\n")
+    athlete_type = ""
+    ma_type = ""
+    if choice == 1:
+        athlete_type = "workout"
+    elif choice == 2:
+        athlete_type = "martial arts"
+        level_choice = input("Please enter 1 for Junior level, 2 for Teenage, 3 for Adult or 4 for Professional:\n")
+        level_athletes = SHEET.worksheet("users").col_values(7)
+        level_count = 0
+        if level_choice == 1:
+            ma_type = "Junior 1"
+            for athlete in level_athletes:
+                if athlete == "Junior 1":
+                    level_count += 1
+            if level_count >= 12:
+                ma_type = "Junior 2"
+                level_count = 0
+                for athlete in level_athletes:
+                    if athlete == "Junior 2":
+                        level_count += 1
+                if level_count >= 12:
+                    ma_type = "Junior 3"
+                    level_count = 0
+                    for athlete in level_athletes:
+                        if athlete == "Junior 3":
+                            level_count += 1
+                    if level_count >= 12:
+                        print("Too many athletes in selected level. Please contact the trainer!")
+        elif level_choice == 2:
+            ma_type = "Teenage MA"
+            for athlete in level_athletes:
+                if athlete == "Teenage MA":
+                    level_count += 1
+        elif level_choice == 3:
+            ma_type = "Adult MA"
+            for athlete in level_athletes:
+                if athlete == "Adult MA":
+                    level_count += 1
+        elif level_choice == 4:
+            ma_type = "Professional MA"
+            for athlete in level_athletes:
+                if athlete == "Professional MA":
+                    level_count += 1
+        else:
+            print("Incorrect choice. Returning to user creation.\n")
+            sign_up()
+        if level_count >= 12:
+                print("Too many athletes in selected level. Please contact the trainer!")
+
+    username = input("Please enter your new username:\n")
+    email = input("Please enter your email:\n")
+    first_name = input("Please enter your new first name:\n")
+    last_name = input("Please enter your last name:\n")
+    new_user = [username, email, first_name, last_name, athlete_type]
+    if athlete_type == "workout":
+        new_user.append([0])
+    else:
+        new_user.append(["", ma_type])
+    print(new_user)
+    # updated_worksheet = SHEET.worksheet("users")
+    # updated_worksheet.append_row(new_user)
+
+"""
+END OF SIGN UP
+"""
 
 def welcome():
     """

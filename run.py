@@ -130,6 +130,34 @@ def workout_sign_up(user_class):
     elif new_choice.lower() == "n":
         successful_sign_in(user_class)
 
+def update_workout(user_class, action):
+    """
+    Gets an action to either add or remove a workout to the user.
+    Updates the row of the selected user to add the new value.
+    """
+
+    index = 0
+    usernames = SHEET.worksheet("users").col_values(1)
+    for username in usernames:
+        index += 1
+        if username == user_class.username:
+            break 
+    index = str(index)
+    new_range = "users!A"+index
+    new_value = int(user_class.workouts_left) - 1
+
+    if action == "remove":
+        SHEET.values_update(
+            new_range,
+            params={
+                'valueInputOption': 'USER_ENTERED'
+            },
+            body={
+                'values': [[user_class.username, user_class.email, user_class.first_name, user_class.last_name, user_class.athlete_type, new_value]]
+            }
+        )
+        
+
 def update_event_attendees(event_id, operation, user_class):
     """
     Checks to see if there is a worksheet with the event ID as name. 
@@ -156,6 +184,7 @@ def update_event_attendees(event_id, operation, user_class):
         print("Signing up for workout...\n")
         updated_worksheet = SHEET.worksheet(event_id)
         updated_worksheet.append_row([user_class.username])
+        update_workout(user_class, "remove")
         print("Successfully signed up for workout! Returning to main menu.\n")
         welcome()
         

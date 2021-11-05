@@ -228,25 +228,17 @@ def verify_username():
     If user exists, calls the function update_user_class to create the user object.
     Then it calls the email verification function.
     """
-    username = input("Enter username or 'exit' to return to menu:\n")
-    usernames = SHEET.worksheet("users").col_values(1)
-    
-    index = 0
-    user_class = {}
-
-    if username in usernames:
-        for ind in usernames:
-            index += 1
-            if username == ind:
-                user_class = update_user_class(index)
-                verify_email(user_class)
-                break
-    elif username == "exit":
-        welcome()
-    else:
-        print("Username incorrect, please try again or type 'exit' to go to main page.\n")
-        verify_username()
-    
+    while True:
+        username = input("Enter username or 'exit' to return to menu:\n")
+        index = find_user_index(username, "username")
+        if username == "exit":
+            welcome()
+        elif index > 0:
+            user_class = update_user_class(index)
+            verify_email(user_class)
+            break
+        else:
+            print("Username incorrect!")
     
 
 def verify_email(user_class):
@@ -254,20 +246,16 @@ def verify_email(user_class):
     Takes the user object, asks the user for the email and verifies if it is correct.
     If so, it passes the user object to the next function.
     """
-    email = ""
-    email = input("Please input your email:\n")
-
-    if email != user_class.email:
-        while True:
-            email = input("Email incorrect. Please try again, or type 'exit' to go to main page.\n")
-            if email == "exit":
-                welcome()
-                break
-            elif email == user_class.email:
-                successful_sign_in(user_class)
-                break
-    elif email == user_class.email:
-        successful_sign_in(user_class)
+    while True:
+        email = input("Please input your email or type 'exit' to return to main menu:\n")
+        index = find_user_index(email, "email")
+        if email == "exit":
+            welcome()
+        elif index > 0:
+            successful_sign_in(user_class)
+            break
+        else:
+            print("Email incorrect!")
 
 """
 START OF SIGN UP
@@ -277,8 +265,24 @@ def sign_up():
     """
     Creates a new user from the parameters provided.
     """
-    username = input("Please enter your new username:\n")
-    email = input("Please enter your email:\n")
+    while True:
+        username = input("Please enter your new username:\n")
+        user_exists = find_user_index(username, "username")
+        if username.lower() == "exit":
+            welcome()
+        elif user_exists > 0:
+            print("Username already in use. Please use a different username or type 'exit' to go to main menu.")
+        else:
+            break
+    while True:
+        email = input("Please enter your email:\n")
+        email_exists = find_user_index(username, "username")
+        if email.lower() == "exit":
+            welcome()
+        elif email_exists > 0:
+            print("Email already in use. Please try again or type 'exit' to go to main menu.")
+        else:
+            break
     first_name = input("Please enter your new first name:\n")
     last_name = input("Please enter your last name:\n")
     new_user = [username, email, first_name, last_name]
@@ -346,6 +350,30 @@ def sign_up():
 """
 END OF SIGN UP
 """
+
+def find_user_index(data, type):
+    """
+    Function to check if username or email exists.
+    It was created as it needs to be called multiple times.
+    It gets the data and the type, looks for the data in the appropriate column depending on type and returns an index number.
+    """
+    index = 0
+    if type == "username":
+        usernames = SHEET.worksheet("users").col_values(1)
+        if data in usernames:
+            for username in usernames:
+                index += 1
+                if username == data:
+                    break
+    elif type == "email":
+        emails = SHEET.worksheet("users").col_values(2)
+        if data in emails:
+            for email in emails:
+                index += 1
+                if email == data:
+                    break
+    
+    return index
 
 def welcome():
     """

@@ -66,7 +66,13 @@ def successful_sign_in(user_class):
     if user_class.athlete_type == "workout":
         choice = input(f"Welcome {user_class.first_name}! Input 1 if you want to sign up for a workout or 2 if you want to see how many you have left for the month:\n")
         if choice == "1":
-            workout_sign_up(user_class)
+            if int(user_class.workouts_left) > 0:
+                workout_sign_up(user_class)
+            else:
+                print("!!!")
+                print("You do not have enough workouts left. Please contact the trainer!")
+                print("!!!\n")
+                welcome()
         elif choice == "2":
             display_user_data(user_class)
     elif user_class.athlete_type == "martial arts":
@@ -181,12 +187,21 @@ def update_event_attendees(event_id, operation, user_class):
                 }]
             }
             SHEET.batch_update(body=new_sheet)
-        print("Signing up for workout...\n")
-        updated_worksheet = SHEET.worksheet(event_id)
-        updated_worksheet.append_row([user_class.username])
-        update_workout(user_class, "remove")
-        print("Successfully signed up for workout! Returning to main menu.\n")
-        welcome()
+        usernames = SHEET.worksheet(event_id).col_values(1)
+        if user_class.username in usernames:
+            print("!!!")
+            print("You are already registered for this workout! Returning to main menu.")
+            print("!!!\n")
+            welcome()
+        else:
+            print("Signing up for workout...\n")
+            updated_worksheet = SHEET.worksheet(event_id)
+            updated_worksheet.append_row([user_class.username])
+            update_workout(user_class, "remove")
+            print("!!!")
+            print("Successfully signed up for workout! Returning to main menu.")
+            print("!!!\n")
+            welcome()
         
 
 def update_user_class(ind):

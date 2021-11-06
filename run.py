@@ -55,6 +55,29 @@ class Martial_Arts_User(User):
         super().__init__(username, email, first_name, last_name, athlete_type)
         self.athlete_group = athlete_group
 
+def find_user_index(data, type):
+    """
+    Function to check if username or email exists.
+    It was created as it needs to be called multiple times.
+    It gets the data and the type, looks for the data in the appropriate column depending on type and returns an index number.
+    """
+    index = 0
+    if type == "username":
+        usernames = SHEET.worksheet("users").col_values(1)
+        if data in usernames:
+            for username in usernames:
+                index += 1
+                if username == data:
+                    break
+    elif type == "email":
+        emails = SHEET.worksheet("users").col_values(2)
+        if data in emails:
+            for email in emails:
+                index += 1
+                if email == data:
+                    break
+    return index
+
 """
 START OF USER ACTIONS -------------------------------------------------------------------------
 """
@@ -410,29 +433,6 @@ def admin_sign_in():
 """
 END OF ADMIN ACTIONS -------------------------------------------------------------------------
 """
-
-def find_user_index(data, type):
-    """
-    Function to check if username or email exists.
-    It was created as it needs to be called multiple times.
-    It gets the data and the type, looks for the data in the appropriate column depending on type and returns an index number.
-    """
-    index = 0
-    if type == "username":
-        usernames = SHEET.worksheet("users").col_values(1)
-        if data in usernames:
-            for username in usernames:
-                index += 1
-                if username == data:
-                    break
-    elif type == "email":
-        emails = SHEET.worksheet("users").col_values(2)
-        if data in emails:
-            for email in emails:
-                index += 1
-                if email == data:
-                    break
-    return index
 
 def welcome():
     """

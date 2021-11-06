@@ -382,9 +382,11 @@ def admin_display_user_data():
     """
     Displays chosen user data and provides options to change it.
     """
-    username = input("Please provide user's username:\n")
+    username = input("Please provide user's username or type 'exit' to go back:\n")
     user_index = find_user_index(username, "username")
-    if user_index == 0:
+    if username.lower() == "exit":
+        admin_actions()
+    elif user_index == 0:
         print("Username incorrect. Please try again.")
         admin_display_user_data()
     else:
@@ -408,14 +410,17 @@ def admin_actions():
     print("1. View user account information.")
     print("2. Edit user account.")
     print("3. View next 10 workouts.")
+    print("4. Exit to main menu.")
     choice = input("What is your choice?\n")
 
-    if choice == 1:
+    if choice == "1":
         admin_display_user_data()
-    elif choice == 2:
+    # elif choice == 2:
 
-    elif choice == 3:
+    # elif choice == 3:
 
+    elif choice == "4" or choice.lower() == "exit":
+        welcome()
     else:
         print("Incorrect choice. Returning to options...")
         admin_actions()

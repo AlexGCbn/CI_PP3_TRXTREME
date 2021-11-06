@@ -388,7 +388,16 @@ def admin_display_user_data():
         print("Username incorrect. Please try again.")
         admin_display_user_data()
     else:
-        
+        print("User found! Fetching data...")
+        user_class = update_user_class(user_index)
+        print(f"You have chosen username '{user_class.username}'.")
+        print(f"Full name: {user_class.first_name} {user_class.last_name}. Email: {user_class.email}")
+        print(f"Athlete type: {user_class.athlete_type}")
+        if user_class.athlete_type == "workout":
+            print(f"Workouts remaining: {user_class.workouts_left}")
+        else:
+            print(f"Martial arts group: {user_class.athlete_group}")
+
 
 def admin_actions():
     """

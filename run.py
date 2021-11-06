@@ -56,60 +56,6 @@ class Martial_Arts_User(User):
         self.athlete_group = athlete_group
 
 """
-START OF ADMIN ACTIONS -------------------------------------------------------------------------
-"""
-
-def admin_display_user_data():
-    """
-    Displays chosen user data and provides options to change it.
-    """
-    
-
-def admin_actions():
-    """
-    Provides admin with options of what they can do.
-    Calls appropriate functions.
-    """
-    print("Welcome admin! Please choose what you want to do:")
-    print("1. View user account information.")
-    print("2. Edit user account.")
-    print("3. View next 10 workouts.")
-    choice = input("What is your choice?\n")
-
-    if choice == 1:
-        admin_display_user_data()
-    elif choice == 2:
-
-    elif choice == 3:
-
-    else:
-        print("Incorrect choice. Returning to options...")
-        admin_actions()
-
-def admin_sign_in():
-    """
-    Asks for admin username and password, then calls admin actions function if successfully signed in.
-    """
-    admin_username = SHEET.worksheet("users").col_values(10)
-    admin_password = SHEET.worksheet("users").col_values(11)
-    while True:
-        username = input("Greetings admin! Please provide your username:\n")
-        if username in admin_username:
-            password = input("Please enter the admin password:\n")
-            if password in admin_password:
-                admin_actions()
-                break
-            else:
-                print("Password incorrect. Please try again!")
-        else:
-            print("username incorrect. Please try again!")
-
-
-"""
-END OF ADMIN ACTIONS -------------------------------------------------------------------------
-"""
-
-"""
 START OF USER ACTIONS -------------------------------------------------------------------------
 """
 
@@ -403,6 +349,66 @@ def sign_up():
 
 """
 END OF SIGN UP
+"""
+
+"""
+START OF ADMIN ACTIONS -------------------------------------------------------------------------
+"""
+
+def admin_display_user_data():
+    """
+    Displays chosen user data and provides options to change it.
+    """
+    username = input("Please provide user's username:\n")
+    user_index = find_user_index(username, "username")
+    if user_index == 0:
+        print("Username incorrect. Please try again.")
+        admin_display_user_data()
+    else:
+        
+
+def admin_actions():
+    """
+    Provides admin with options of what they can do.
+    Calls appropriate functions.
+    """
+    print("Welcome admin! Please choose what you want to do:")
+    print("1. View user account information.")
+    print("2. Edit user account.")
+    print("3. View next 10 workouts.")
+    choice = input("What is your choice?\n")
+
+    if choice == 1:
+        admin_display_user_data()
+    elif choice == 2:
+
+    elif choice == 3:
+
+    else:
+        print("Incorrect choice. Returning to options...")
+        admin_actions()
+
+def admin_sign_in():
+    """
+    Asks for admin username and password, then calls admin actions function if successfully signed in.
+    """
+    admin_username = SHEET.worksheet("users").col_values(10)
+    admin_password = SHEET.worksheet("users").col_values(11)
+    while True:
+        username = input("Greetings admin! Please provide your username:\n")
+        if username in admin_username:
+            password = input("Please enter the admin password:\n")
+            if password in admin_password:
+                admin_actions()
+                break
+            else:
+                print("Password incorrect. Please try again!")
+        else:
+            print("username incorrect. Please try again!")
+
+
+"""
+END OF ADMIN ACTIONS -------------------------------------------------------------------------
 """
 
 def find_user_index(data, type):

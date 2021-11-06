@@ -378,6 +378,44 @@ END OF SIGN UP
 START OF ADMIN ACTIONS -------------------------------------------------------------------------
 """
 
+def edit_item(index, user_class, item):
+    """
+    Gets user index, the created object and the item to change.
+    Changes the item in the object so it can be returned to the GSheet.
+    """
+
+def admin_edit_user_menu(index, user_class):
+    """
+    Gets user index and the created object to provide change options and call next function.
+    """
+    print("What do you want to edit?")
+    print("1. Username")
+    print("2. Email")
+    print("3. First name")
+    print("4. Last name")
+    if user_class.athlete_type == "workout":
+        print("5. Workouts left")
+    else:
+        print("5. Athlete group")
+    print("6. Exit to menu")
+
+    choice = input("Input choice:\n")
+    if choice == "6":
+        admin_actions()
+    elif choice == "1":
+        edit_item(index, user_class, "username")
+    elif choice == "2":
+        edit_item(index, user_class, "email")
+    elif choice == "3":
+        edit_item(index, user_class, "first_name")
+    elif choice == "4":
+        edit_item(index, user_class, "last_name")
+    elif choice == "5":
+        if user_class.athlete_type == "workout":
+            edit_item(index, user_class, "workouts_left")
+        else:
+            edit_item(index, user_class, "athlete_group")
+
 def admin_display_user_data():
     """
     Displays chosen user data and provides options to change it.
@@ -396,9 +434,15 @@ def admin_display_user_data():
         print(f"Full name: {user_class.first_name} {user_class.last_name}. Email: {user_class.email}")
         print(f"Athlete type: {user_class.athlete_type}")
         if user_class.athlete_type == "workout":
-            print(f"Workouts remaining: {user_class.workouts_left}")
+            print(f"Workouts remaining: {user_class.workouts_left}\n")
         else:
-            print(f"Martial arts group: {user_class.athlete_group}")
+            print(f"Martial arts group: {user_class.athlete_group}\n")
+        print("Would you like to change the user's data or go back to the previous menu?")
+        choice = input("Input 1 to edit or any other key to go back:\n")
+        if choice == "1":
+            admin_edit_user_menu(user_index, user_class)
+        else:
+            admin_actions()
 
 
 def admin_actions():

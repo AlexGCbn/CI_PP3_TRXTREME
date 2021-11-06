@@ -59,12 +59,32 @@ class Martial_Arts_User(User):
 START OF ADMIN ACTIONS -------------------------------------------------------------------------
 """
 
+def admin_display_user_data():
+    """
+    Displays chosen user data and provides options to change it.
+    """
+    
+
 def admin_actions():
     """
     Provides admin with options of what they can do.
     Calls appropriate functions.
     """
-    
+    print("Welcome admin! Please choose what you want to do:")
+    print("1. View user account information.")
+    print("2. Edit user account.")
+    print("3. View next 10 workouts.")
+    choice = input("What is your choice?\n")
+
+    if choice == 1:
+        admin_display_user_data()
+    elif choice == 2:
+
+    elif choice == 3:
+
+    else:
+        print("Incorrect choice. Returning to options...")
+        admin_actions()
 
 def admin_sign_in():
     """

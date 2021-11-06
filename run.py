@@ -56,6 +56,40 @@ class Martial_Arts_User(User):
         self.athlete_group = athlete_group
 
 """
+START OF ADMIN ACTIONS -------------------------------------------------------------------------
+"""
+
+def admin_actions():
+    """
+    Provides admin with options of what they can do.
+    Calls appropriate functions.
+    """
+    
+
+def admin_sign_in():
+    """
+    Asks for admin username and password, then calls admin actions function if successfully signed in.
+    """
+    admin_username = SHEET.worksheet("users").col_values(10)
+    admin_password = SHEET.worksheet("users").col_values(11)
+    while True:
+        username = input("Greetings admin! Please provide your username:\n")
+        if username in admin_username:
+            password = input("Please enter the admin password:\n")
+            if password in admin_password:
+                admin_actions()
+                break
+            else:
+                print("Password incorrect. Please try again!")
+        else:
+            print("username incorrect. Please try again!")
+
+
+"""
+END OF ADMIN ACTIONS -------------------------------------------------------------------------
+"""
+
+"""
 START OF USER ACTIONS -------------------------------------------------------------------------
 """
 
@@ -372,7 +406,6 @@ def find_user_index(data, type):
                 index += 1
                 if email == data:
                     break
-    
     return index
 
 def welcome():

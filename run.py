@@ -169,13 +169,7 @@ def update_workout(user_class, action):
     Updates the row of the selected user to add the new value.
     """
 
-    index = 0
-    usernames = SHEET.worksheet("users").col_values(1)
-    for username in usernames:
-        index += 1
-        if username == user_class.username:
-            break 
-    index = str(index)
+    index = str(find_user_index(user_class.username, "username"))
     new_range = "users!A"+index
     new_value = int(user_class.workouts_left) - 1
 
@@ -384,6 +378,44 @@ def edit_item(index, user_class, item):
     Changes the item in the object so it can be returned to the GSheet.
     """
 
+    new_range = "users!A"+str(index)
+    new_value = input("Provide new value:\n")
+
+    # if item == "username":
+    #     user_class.username = new_value
+    # elif item == "email":
+    #     user_class.email = new_value
+    # elif item == "first_name":
+    #     user_class.first_name = new_value
+    # elif item == "last_name":
+    #     user_class.last_name = new_value
+    # elif item == "workouts_left":
+    setattr(user_class, item, new_value)
+    item_str = item.replace("_", " ").capitalize()
+    if user_class.athlete_type == "workout":
+        SHEET.values_update(
+            new_range,
+            params={
+                'valueInputOption': 'USER_ENTERED'
+            },
+            body={
+                'values': [[user_class.username, user_class.email, user_class.first_name, user_class.last_name, user_class.athlete_type, user_class.workouts_left]]
+            }
+        )
+        print(f"{item_str} updated!")
+    else:
+        SHEET.values_update(
+            new_range,
+            params={
+                'valueInputOption': 'USER_ENTERED'
+            },
+            body={
+                'values': [[user_class.username, user_class.email, user_class.first_name, user_class.last_name, user_class.athlete_type, 0, user_class.athlete_group]]
+            }
+        )
+        print(f"{item_str} updated!")
+
+
 def admin_edit_user_menu(index, user_class):
     """
     Gets user index and the created object to provide change options and call next function.
@@ -428,10 +460,11 @@ def admin_display_user_data():
         print("Username incorrect. Please try again.")
         admin_display_user_data()
     else:
-        print("User found! Fetching data...")
+        print("User found! Fetching data...\n")
         user_class = update_user_class(user_index)
-        print(f"You have chosen username '{user_class.username}'.")
-        print(f"Full name: {user_class.first_name} {user_class.last_name}. Email: {user_class.email}")
+        print(f"You have chosen username '{user_class.username}':")
+        print(f"Full name: {user_class.first_name} {user_class.last_name}")
+        print(f"Email: {user_class.email}")
         print(f"Athlete type: {user_class.athlete_type}")
         if user_class.athlete_type == "workout":
             print(f"Workouts remaining: {user_class.workouts_left}\n")

@@ -484,19 +484,16 @@ def admin_actions():
     Calls appropriate functions.
     """
     print("Welcome admin! Please choose what you want to do:")
-    print("1. View user account information.")
-    print("2. Edit user account.")
-    print("3. View next 10 workouts.")
-    print("4. Exit to main menu.")
+    print("1. View and edit user account information.")
+    print("2. View next 10 workouts.")
+    print("3. Exit to main menu.")
     choice = input("What is your choice?\n")
 
     if choice == "1":
         admin_display_user_data()
     # elif choice == 2:
 
-    # elif choice == 3:
-
-    elif choice == "4" or choice.lower() == "exit":
+    elif choice == "3" or choice.lower() == "exit":
         welcome()
     else:
         print("Incorrect choice. Returning to options...")

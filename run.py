@@ -385,8 +385,14 @@ def view_workouts():
     except ValueError:
         print("Date incorrect. Please try again!")
         view_workouts()
+    date_min = str(new_date) + "T00:00Z"
+    date_max = str(new_date) + "T23:59Z"
+
     
+
     print(new_date)
+    print(date_min)
+    print(date_max)
 
 def edit_item(index, user_class, item):
     """

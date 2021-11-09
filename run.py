@@ -133,7 +133,6 @@ def workout_sign_up(user_class):
     Uses 'now' to get UTC+0 timestamp. Events are presented in GSheet time.
     """
     now = datetime.datetime.utcnow().isoformat() + "Z"
-    print(now)
     print("Getting upcoming events")
     events_result = CALENDAR.events().list(calendarId=CALENDAR_ID, timeMin=now, maxResults=20, singleEvents=True, orderBy="startTime").execute()
     events = events_result.get('items', [])
@@ -381,18 +380,29 @@ def view_workouts():
     chosen_month = input("Provide month (MM):\n")
     chosen_day = input("Provide date (DD):\n")
     try:
-        new_date = datetime.date(int(chosen_year), int(chosen_month), int(chosen_day))
+        new_date = datetime.datetime(int(chosen_year), int(chosen_month), int(chosen_day)).isoformat() + "Z"
     except ValueError:
         print("Date incorrect. Please try again!")
         view_workouts()
-    date_min = str(new_date) + "T00:00Z"
-    date_max = str(new_date) + "T23:59Z"
+    date_no_time = new_date.replace("T00:00:00Z", "")
+    print(date_no_time)
+    # date_min = new_date + "T00:00Z"
+    # date_max = new_date + "T23:59Z"
 
-    
+    print(f"Getting events for date {date_no_time}...")
+    events_result = CALENDAR.events().list(calendarId=CALENDAR_ID, timeMin=new_date, maxResults=20, singleEvents=True, orderBy="startTime").execute()
+    events = events_result.get('items', [])
+    index = 0
+    events_list = []
 
-    print(new_date)
-    print(date_min)
-    print(date_max)
+    if not events:
+        print('No upcoming events found.')
+    for event in events:
+        start = event['start'].get('dateTime', event['start'].get('date'))
+        if date_no_time in start:
+            index += 1
+            events_list.append(event['id'])
+            print(index, "-", start.replace("T", " ").replace(":00+02:00", ""), event['summary'])
 
 def edit_item(index, user_class, item):
     """

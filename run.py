@@ -377,9 +377,16 @@ def view_workouts():
     Gets a date from admin and displays the schedule for the day.
     Provides the option to see who is in each workout/class.
     """
-    chosen_year = input("Provide year:\n")
-    chosen_month = input("Provide month:\n")
+    chosen_year = input("Provide year (YYYY):\n")
+    chosen_month = input("Provide month (MM):\n")
+    chosen_day = input("Provide date (DD):\n")
+    try:
+        new_date = datetime.date(int(chosen_year), int(chosen_month), int(chosen_day))
+    except ValueError:
+        print("Date incorrect. Please try again!")
+        view_workouts()
     
+    print(new_date)
 
 def edit_item(index, user_class, item):
     """
@@ -489,7 +496,7 @@ def admin_actions():
 
     if choice == "1":
         admin_display_user_data()
-    elif choice == 2:
+    elif choice == "2":
         view_workouts()
     elif choice == "3" or choice.lower() == "exit":
         welcome()

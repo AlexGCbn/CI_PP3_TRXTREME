@@ -372,24 +372,22 @@ END OF SIGN UP
 START OF ADMIN ACTIONS -------------------------------------------------------------------------
 """
 
+def view_workouts():
+    """
+    Gets a date from admin and displays the schedule for the day.
+    Provides the option to see who is in each workout/class.
+    """
+    chosen_year = input("Provide year:\n")
+    chosen_month = input("Provide month:\n")
+    
+
 def edit_item(index, user_class, item):
     """
     Gets user index, the created object and the item to change.
     Changes the item in the object so it can be returned to the GSheet.
     """
-
     new_range = "users!A"+str(index)
     new_value = input("Provide new value:\n")
-
-    # if item == "username":
-    #     user_class.username = new_value
-    # elif item == "email":
-    #     user_class.email = new_value
-    # elif item == "first_name":
-    #     user_class.first_name = new_value
-    # elif item == "last_name":
-    #     user_class.last_name = new_value
-    # elif item == "workouts_left":
     setattr(user_class, item, new_value)
     item_str = item.replace("_", " ").capitalize()
     if user_class.athlete_type == "workout":
@@ -410,7 +408,7 @@ def edit_item(index, user_class, item):
                 'valueInputOption': 'USER_ENTERED'
             },
             body={
-                'values': [[user_class.username, user_class.email, user_class.first_name, user_class.last_name, user_class.athlete_type, 0, user_class.athlete_group]]
+                'values': [[user_class.username, user_class.email, user_class.first_name, user_class.last_name, user_class.athlete_type, "", user_class.athlete_group]]
             }
         )
         print(f"{item_str} updated!")
@@ -485,14 +483,14 @@ def admin_actions():
     """
     print("Welcome admin! Please choose what you want to do:")
     print("1. View and edit user account information.")
-    print("2. View next 10 workouts.")
+    print("2. View workouts.")
     print("3. Exit to main menu.")
     choice = input("What is your choice?\n")
 
     if choice == "1":
         admin_display_user_data()
-    # elif choice == 2:
-
+    elif choice == 2:
+        view_workouts()
     elif choice == "3" or choice.lower() == "exit":
         welcome()
     else:

@@ -1,12 +1,8 @@
 """
 Main file
 """
-
-from re import U
-from pprint import pprint
 import gspread
 import datetime
-import os.path
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
@@ -386,8 +382,6 @@ def view_workouts():
         view_workouts()
     date_no_time = new_date.replace("T00:00:00Z", "")
     print(date_no_time)
-    # date_min = new_date + "T00:00Z"
-    # date_max = new_date + "T23:59Z"
 
     print(f"Getting events for date {date_no_time}...")
     events_result = CALENDAR.events().list(calendarId=CALENDAR_ID, timeMin=new_date, maxResults=20, singleEvents=True, orderBy="startTime").execute()
@@ -403,6 +397,39 @@ def view_workouts():
             index += 1
             events_list.append(event['id'])
             print(index, "-", start.replace("T", " ").replace(":00+02:00", ""), event['summary'])
+    
+    choice = input("Please input the number of the workout you choose from above:\n")
+    event_id = events_list[int(choice)-1]
+    chosen_workout = CALENDAR.events().get(calendarId=CALENDAR_ID, eventId=events_list[int(choice)-1]).execute()
+    start = chosen_workout['start'].get('dateTime', chosen_workout['start'].get('date'))
+    start = start.replace("T", " ").replace(":00+02:00", "")
+    print("You chose the following workout:")
+    print(f"Name: {chosen_workout['summary']}, Date: {start}")
+    try:
+        sheet_check = SHEET.worksheet(event_id)
+    except:
+        sheet_check = Null
+    if "TRX" in chosen_workout["summary"] or "Cross Training" in chosen_workout["summary"]:
+        if sheet_check == Null:
+            print("There are no registered users for this class.\n")
+        else:
+            print("The following users are registered:")
+            usernames = SHEET.worksheet(chosen_workout["id"]).col_values(1)
+            for username in usernames:
+                print(username)
+        print("\n")
+    else:
+        print("The following users are registered:")
+        index = 0
+        ma_users = SHEET.worksheet("users").col_values(7)
+        usernames = SHEET.worksheet("users").col_values(1)
+        for ma_user in ma_users:
+            index += 1
+            if ma_user == chosen_workout["summary"]:
+                print(usernames[index-1])
+        print("\n")
+    admin_actions()
+
 
 def edit_item(index, user_class, item):
     """

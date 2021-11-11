@@ -83,9 +83,11 @@ def successful_sign_in(user_class):
     For martial arts athletes, provides details and next workout directly.
     """
     choice = ""
-
     if user_class.athlete_type == "workout":
-        choice = input(f"Welcome {user_class.first_name}! Input 1 if you want to sign up for a workout or 2 if you want to see how many you have left for the month:\n")
+        choice = input(f"Welcome {user_class.first_name}! Please choose an option:")
+        print("1. Sign up for workout")
+        print("2. View remaining workouts")
+        print("3. Exit to main menu")
         if choice == "1":
             if int(user_class.workouts_left) > 0:
                 workout_sign_up(user_class)
@@ -96,8 +98,14 @@ def successful_sign_in(user_class):
                 welcome()
         elif choice == "2":
             display_user_data(user_class)
+        elif choice == "3":
+            welcome()
+        else:
+            print("Incorrect choice. Please try again!")
+            successful_sign_in(user_class)
     elif user_class.athlete_type == "martial arts":
         display_user_data(user_class)
+    welcome()
 
 def display_user_data(user_class):
     """
@@ -573,6 +581,7 @@ def welcome():
     Welcome function used to provide user with choice of admin/athlete sign in, or sign up.
     Calls appropriate functions according to user choice.
     """
+    print("----")
     print("Welcome to TRXtreme! Please choose an option:\n")
 
     while True:

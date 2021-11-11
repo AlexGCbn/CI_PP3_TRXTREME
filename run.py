@@ -184,7 +184,6 @@ def update_workout(user_class):
             'values': [[user_class.username, user_class.email, user_class.first_name, user_class.last_name, user_class.athlete_type, new_value]]
         }
     )
-        
 
 def update_event_attendees(event_id, operation, user_class):
     """
@@ -436,7 +435,6 @@ def view_workouts():
         print("\n")
     admin_actions()
 
-
 def edit_item(index, user_class, item):
     """
     Gets user index, the created object and the item to change.
@@ -469,7 +467,6 @@ def edit_item(index, user_class, item):
         )
         print(f"{item_str} updated!")
 
-
 def admin_edit_user_menu(index, user_class):
     """
     Gets user index and the created object to provide change options and call next function.
@@ -501,6 +498,7 @@ def admin_edit_user_menu(index, user_class):
             edit_item(index, user_class, "workouts_left")
         else:
             edit_item(index, user_class, "athlete_group")
+    admin_actions()
 
 def admin_display_user_data():
     """
@@ -570,7 +568,6 @@ def admin_sign_in():
                 print("Password incorrect. Please try again!")
         else:
             print("username incorrect. Please try again!")
-
 
 """
 END OF ADMIN ACTIONS -------------------------------------------------------------------------

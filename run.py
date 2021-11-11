@@ -1,12 +1,24 @@
 """
 Main file
 """
+
+"""
+The following section has all the imports that the app requires to work.
+gspread -> Google Sheets
+datetime -> Date and time functions 
+build -> creates the session for the Google Calendar
+Credentials -> Google authentication (required)
+Null -> user for null events
+"""
 import gspread
 import datetime
 from googleapiclient.discovery import build
 from google.oauth2.service_account import Credentials
 from pyasn1.type.univ import Null
 
+"""
+Scope required for Google Sheets, Calendar and Drive to work
+"""
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
@@ -14,14 +26,20 @@ SCOPE = [
     "https://www.googleapis.com/auth/calendar"
     ]
 
-CREDS = Credentials.from_service_account_file("creds.json")
-SCOPED_CREDS = CREDS.with_scopes(SCOPE)
-GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
-SHEET = GSPREAD_CLIENT.open("trxtreme")
-SHEET_ID = "1izyPTgGIt_uKegNn2I0lFUdrAuXPJisNeXgvzN2EG_g"
-CALENDAR = build("calendar", "v3", credentials = CREDS)
-CALENDAR_ID = "trxtreme2021@gmail.com"
+"""
+Global variables used for Google Sheets and Calendar
+"""
+CREDS = Credentials.from_service_account_file("creds.json") # Credentials file
+SCOPED_CREDS = CREDS.with_scopes(SCOPE) # Scoped credentials
+GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS) # Google Sheets authorization
+SHEET = GSPREAD_CLIENT.open("trxtreme") # Opens selected Google Sheet
+SHEET_ID = "1izyPTgGIt_uKegNn2I0lFUdrAuXPJisNeXgvzN2EG_g" # The selected Google Sheet ID, used in some functions
+CALENDAR = build("calendar", "v3", credentials = CREDS) # Google Calendar service build
+CALENDAR_ID = "trxtreme2021@gmail.com" # Google Calendar ID
 
+"""
+Start of user class and subclasses
+"""
 class User:
     """
     Base user class that will pull data from Google Sheets when called.
@@ -48,6 +66,10 @@ class Martial_Arts_User(User):
     def __init__(self, username, email, first_name, last_name, athlete_type, athlete_group):
         super().__init__(username, email, first_name, last_name, athlete_type)
         self.athlete_group = athlete_group
+
+"""
+End of user class and subclasses
+"""
 
 def find_user_index(data, type):
     """

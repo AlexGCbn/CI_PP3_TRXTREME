@@ -84,10 +84,11 @@ def successful_sign_in(user_class):
     """
     choice = ""
     if user_class.athlete_type == "workout":
-        choice = input(f"Welcome {user_class.first_name}! Please choose an option:")
+        print(f"Welcome {user_class.first_name}! Please choose an option:")
         print("1. Sign up for workout")
         print("2. View remaining workouts")
         print("3. Exit to main menu")
+        choice = input("Enter choice:\n")
         if choice == "1":
             if int(user_class.workouts_left) > 0:
                 workout_sign_up(user_class)
@@ -105,6 +106,7 @@ def successful_sign_in(user_class):
             successful_sign_in(user_class)
     elif user_class.athlete_type == "martial arts":
         display_user_data(user_class)
+    print("Returning to main menu...\n")
     welcome()
 
 def display_user_data(user_class):
@@ -164,7 +166,7 @@ def workout_sign_up(user_class):
     elif new_choice.lower() == "n":
         successful_sign_in(user_class)
 
-def update_workout(user_class, action):
+def update_workout(user_class):
     """
     Gets an action to either add or remove a workout to the user.
     Updates the row of the selected user to add the new value.
@@ -173,17 +175,15 @@ def update_workout(user_class, action):
     index = str(find_user_index(user_class.username, "username"))
     new_range = "users!A"+index
     new_value = int(user_class.workouts_left) - 1
-
-    if action == "remove":
-        SHEET.values_update(
-            new_range,
-            params={
-                'valueInputOption': 'USER_ENTERED'
-            },
-            body={
-                'values': [[user_class.username, user_class.email, user_class.first_name, user_class.last_name, user_class.athlete_type, new_value]]
-            }
-        )
+    SHEET.values_update(
+        new_range,
+        params={
+            'valueInputOption': 'USER_ENTERED'
+        },
+        body={
+            'values': [[user_class.username, user_class.email, user_class.first_name, user_class.last_name, user_class.athlete_type, new_value]]
+        }
+    )
         
 
 def update_event_attendees(event_id, operation, user_class):
@@ -219,7 +219,7 @@ def update_event_attendees(event_id, operation, user_class):
             print("Signing up for workout...\n")
             updated_worksheet = SHEET.worksheet(event_id)
             updated_worksheet.append_row([user_class.username])
-            update_workout(user_class, "remove")
+            update_workout(user_class)
             print("!!!")
             print("Successfully signed up for workout! Returning to main menu.")
             print("!!!\n")
@@ -257,7 +257,6 @@ def verify_username():
             break
         else:
             print("Username incorrect!")
-    
 
 def verify_email(user_class):
     """
@@ -364,9 +363,10 @@ def sign_up():
     updated_worksheet.append_row(new_user)
 
     print("Sign up complete! Please speak with the trainer to begin attending!")
+    print("Returning to main menu...\n")
 
 """
-END OF SIGN UP
+END OF SIGN UP -------------------------------------------------------------------------
 """
 
 """

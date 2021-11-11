@@ -4,8 +4,6 @@ Main file
 import gspread
 import datetime
 from googleapiclient.discovery import build
-from google_auth_oauthlib.flow import InstalledAppFlow
-from google.auth.transport.requests import Request
 from google.oauth2.service_account import Credentials
 from pyasn1.type.univ import Null
 
@@ -575,33 +573,28 @@ def welcome():
     Welcome function used to provide user with choice of admin/athlete sign in, or sign up.
     Calls appropriate functions according to user choice.
     """
-    print("Welcome to TRXtreme.\n")
+    print("Welcome to TRXtreme! Please choose an option:\n")
 
     while True:
-        print("To sign in as a user, please input the letter u and enter.")
-        print("To sign in as admin, please input the letter a and enter.")
-        print("To sign up, please input the letter s and enter.\n")
+        print("1. Sign in (Already a user)")
+        print("2. Sign up (Not a user)")
+        print("3. Admin sign in")
+        print("4. Terminate program\n")
         
         user_answer = input("Enter choice:\n")
 
-        if user_answer.lower() == "u":
+        if user_answer == "1":
             verify_username()
             break
-        elif user_answer.lower() == "a":
-            admin_sign_in()
-            break
-        elif user_answer.lower() == "s":
+        elif user_answer == "2":
             sign_up()
             break
-        elif user_answer.lower() == "exit":
+        elif user_answer == "3":
+            admin_sign_in()
+            break
+        elif user_answer == "4" or user_answer.lower() == "exit":
             quit()
         else:
             print(f"{user_answer} is not an acceptable key. Please choose a correct one.\n")
 
-def main():
-    """
-    Main function used to run all necessary program functions.
-    """
-    welcome()
-
-main()
+welcome()

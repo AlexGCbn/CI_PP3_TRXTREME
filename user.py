@@ -1,5 +1,6 @@
 """
-Module used to store code for user class and subclasses, along with the function to get the user index.
+Module used to store code for user class and subclasses,
+along with the function to get the user index.
 """
 import gservices as gs
 
@@ -19,11 +20,13 @@ class User:
 
 class Workout_User(User):
     """
-    Workout user class that has an extra "workouts left" attribute that counts how many times they can work out.
+    Workout user class that has an extra "workouts left"
+    attribute that counts how many times they can work out.
     """
 
     def __init__(
-        self, username, email, first_name, last_name, athlete_type, workouts_left
+        self, username, email, first_name,
+            last_name, athlete_type, workouts_left
     ):
         super().__init__(username, email, first_name, last_name, athlete_type)
         self.workouts_left = workouts_left
@@ -31,35 +34,38 @@ class Workout_User(User):
 
 class Martial_Arts_User(User):
     """
-    Martial arts user class that has the user's athlete group, which dictates which dates they will join."
+    Martial arts user class that has the user's athlete group,
+    which dictates which dates they will join."
     """
 
     def __init__(
-        self, username, email, first_name, last_name, athlete_type, athlete_group
+        self, username, email, first_name,
+            last_name, athlete_type, athlete_group
     ):
         super().__init__(username, email, first_name, last_name, athlete_type)
         self.athlete_group = athlete_group
 
 
-def find_user_index(data, type):
+def find_user_index(data_value, type_value):
     """
     Function to check if username or email exists.
     It was created as it needs to be called multiple times.
-    It gets the data and the type, looks for the data in the appropriate column depending on type and returns an index number.
+    It gets the data_value and the type_value, looks for the data_value in the
+    appropriate column depending on type_value and returns an index number.
     """
     index = 0
     if type == "username":
         usernames = gs.SHEET.worksheet("users").col_values(1)
-        if data in usernames:
+        if data_value in usernames:
             for username in usernames:
                 index += 1
-                if username == data:
+                if username == data_value:
                     break
-    elif type == "email":
+    elif type_value == "email":
         emails = gs.SHEET.worksheet("users").col_values(2)
-        if data in emails:
+        if data_value in emails:
             for email in emails:
                 index += 1
-                if email == data:
+                if email == data_value:
                     break
     return index

@@ -34,7 +34,8 @@ def update_workout(user_class):
 
 def update_user_class(ind):
     """
-    Uses the passed index number to find user on Google Sheet and create the user object.
+    Uses the passed index number to find user on
+    Google Sheet and create the user object.
     """
     values = gs.SHEET.worksheet("users").row_values(ind)
     if values[4] == "workout":

@@ -3,10 +3,12 @@ Module used to store code for user class and subclasses, along with the function
 """
 import gservices as gs
 
+
 class User:
     """
     Base user class that will pull data from Google Sheets when called.
     """
+
     def __init__(self, username, email, first_name, last_name, athlete_type):
         self.username = username
         self.email = email
@@ -14,21 +16,30 @@ class User:
         self.last_name = last_name
         self.athlete_type = athlete_type
 
+
 class Workout_User(User):
     """
     Workout user class that has an extra "workouts left" attribute that counts how many times they can work out.
     """
-    def __init__(self, username, email, first_name, last_name, athlete_type, workouts_left):
+
+    def __init__(
+        self, username, email, first_name, last_name, athlete_type, workouts_left
+    ):
         super().__init__(username, email, first_name, last_name, athlete_type)
         self.workouts_left = workouts_left
+
 
 class Martial_Arts_User(User):
     """
     Martial arts user class that has the user's athlete group, which dictates which dates they will join."
     """
-    def __init__(self, username, email, first_name, last_name, athlete_type, athlete_group):
+
+    def __init__(
+        self, username, email, first_name, last_name, athlete_type, athlete_group
+    ):
         super().__init__(username, email, first_name, last_name, athlete_type)
         self.athlete_group = athlete_group
+
 
 def find_user_index(data, type):
     """

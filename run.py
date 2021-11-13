@@ -10,18 +10,19 @@ Main file
 # https://learndataanalysis.org/add-new-worksheets-to-existing-google-sheets-file-with-google-sheets-api/
 
 import datetime
+from pyasn1.type.univ import Null
 import gservices as gs
 import user
 import user_data as ud
-from pyasn1.type.univ import Null
 
-# START OF USER ACTIONS -------------------------------------------------------------------------
+# START OF USER ACTIONS
 
 
 def successful_sign_in(user_class):
     """
     Uses user class to determine what choices to provide to user.
-    For workout users, provides the option to sign up for a workout or see their information.
+    For workout users, provides the option to sign up for a workout
+    or see their information.
     For martial arts athletes, provides details and next workout directly.
     """
     choice = ""
@@ -37,7 +38,8 @@ def successful_sign_in(user_class):
             else:
                 print("!!!")
                 print(
-                    "You do not have enough workouts left. Please contact the trainer!"
+                    "You do not have enough workouts left. \
+                        Please contact the trainer!"
                 )
                 print("!!!\n")
                 welcome()
@@ -56,7 +58,8 @@ def successful_sign_in(user_class):
 
 def display_user_data(user_class):
     """
-    Provides information to user about their profile depending on their type.
+    Provides information to user about their profile
+    depending on their type.
     """
     if user_class.athlete_type == "workout":
         print(
@@ -88,7 +91,9 @@ def display_user_data(user_class):
             events = events_result.get("items", [])
             for event in events:
                 events_list.append(event["id"])
-                start = event["start"].get("dateTime", event["start"].get("date"))
+                start = event["start"].get(
+                    "dateTime", event["start"].get("date")
+                    )
                 start = start.replace("T", " ").replace(":00+02:00", "")
             print(f"Your next training session is on: {start}")
 
@@ -134,7 +139,8 @@ def workout_sign_up(user_class):
                 event["summary"],
             )
 
-    choice = input("Please input the number of the workout you choose from above:\n")
+    choice = input("Please input the number of the workout \
+        you choose from above:\n")
     event_id = events_list[int(choice) - 1]
     chosen_workout = (
         # pylint: disable=no-member
@@ -142,7 +148,9 @@ def workout_sign_up(user_class):
         .get(calendarId=gs.CALENDAR_ID, eventId=events_list[int(choice) - 1])
         .execute()
     )
-    start = chosen_workout["start"].get("dateTime", chosen_workout["start"].get("date"))
+    start = chosen_workout["start"].get(
+        "dateTime", chosen_workout["start"].get("date")
+        )
     start = start.replace("T", " ").replace(":00+02:00", "")
     print("You chose the following workout:\n")
     print(f"Name: {chosen_workout['summary']}, Date: {start}")
@@ -162,8 +170,7 @@ def update_event_attendees(event_id, operation, user_class):
     if operation == "sign_up":
         try:
             sheet_check = gs.SHEET.worksheet(event_id)
-        except:
-            # pylint: disable=bare-except
+        except:  # pylint: disable=bare-except
             sheet_check = Null
         if sheet_check == Null:
             # Credits: start of code, REF#1
@@ -175,7 +182,8 @@ def update_event_attendees(event_id, operation, user_class):
         if user_class.username in usernames:
             print("!!!")
             print(
-                "You are already registered for this workout! Returning to main menu."
+                "You are already registered for this workout! \
+                    Returning to main menu."
             )
             print("!!!\n")
             welcome()
@@ -185,16 +193,22 @@ def update_event_attendees(event_id, operation, user_class):
             updated_worksheet.append_row([user_class.username])
             ud.update_workout(user_class)
             print("!!!")
-            print("Successfully signed up for workout! Returning to main menu.")
+            print(
+                "Successfully signed up for workout! \
+                Returning to main menu."
+            )
             print("!!!\n")
             welcome()
 
-# END OF USER ACTIONS -------------------------------------------------------------------------
+
+# END OF USER ACTIONS
+
 
 def verify_username():
     """
     Uses username to check if user exists on Google Sheet.
-    If user exists, calls the function update_user_class to create the user object.
+    If user exists, calls the function update_user_class
+    to create the user object.
     Then it calls the email verification function.
     """
     while True:
@@ -212,7 +226,8 @@ def verify_username():
 
 def verify_email(user_class):
     """
-    Takes the user object, asks the user for the email and verifies if it is correct.
+    Takes the user object,
+    asks the user for the email and verifies if it is correct.
     If so, it passes the user object to the next function.
     """
     while True:
@@ -228,7 +243,9 @@ def verify_email(user_class):
         else:
             print("Email incorrect!")
 
+
 # START OF SIGN UP
+
 
 def sign_up():
     """
@@ -242,7 +259,8 @@ def sign_up():
         elif user_exists > 0:
             print(
                 "Username already in use. \
-                    Please use a different username or type 'exit' to go to main menu."
+                    Please use a different username or type \
+                        'exit' to go to main menu."
             )
         else:
             break
@@ -328,9 +346,11 @@ def sign_up():
     print("Returning to main menu...\n")
     welcome()
 
-# END OF SIGN UP -------------------------------------------------------------------------
 
-# START OF ADMIN ACTIONS -------------------------------------------------------------------------
+# END OF SIGN UP
+
+# START OF ADMIN ACTIONS
+
 
 def view_workouts():
     """
@@ -403,8 +423,7 @@ def view_workouts():
         print(f"Name: {chosen_workout['summary']}, Date: {start}")
         try:
             sheet_check = gs.SHEET.worksheet(event_id)
-        except:
-            # pylint: disable=bare-except
+        except:  # pylint: disable=bare-except
             sheet_check = Null
         if (
             "TRX" in chosen_workout["summary"]
@@ -533,12 +552,13 @@ def admin_sign_in():
             if password in admin_password:
                 admin_actions()
                 break
-            else:
-                print("Password incorrect. Please try again!")
+            print("Password incorrect. Please try again!")
         else:
             print("username incorrect. Please try again!")
 
-# END OF ADMIN ACTIONS -------------------------------------------------------------------------
+
+# END OF ADMIN ACTIONS
+
 
 def welcome():
     """

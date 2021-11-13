@@ -17,6 +17,7 @@ import gservices as gs
 # import user_code
 # import sign_up_code
 import user
+import user_data as ud
 from pyasn1.type.univ import Null
 # from googleapiclient.discovery import build
 # from google.oauth2.service_account import Credentials
@@ -193,24 +194,23 @@ def workout_sign_up(user_class):
     elif new_choice.lower() == "n":
         successful_sign_in(user_class)
 
-def update_workout(user_class):
-    """
-    Gets an action to either add or remove a workout to the user.
-    Updates the row of the selected user to add the new value.
-    """
-
-    index = str(user.find_user_index(user_class.username, "username"))
-    new_range = "users!A"+index
-    new_value = int(user_class.workouts_left) - 1
-    gs.SHEET.values_update(
-        new_range,
-        params={
-            'valueInputOption': 'USER_ENTERED'
-        },
-        body={
-            'values': [[user_class.username, user_class.email, user_class.first_name, user_class.last_name, user_class.athlete_type, new_value]]
-        }
-    )
+# def update_workout(user_class):
+#     """
+#     Removes a user workout from their counter.
+#     Updates the row of the selected user to add the new value.
+#     """
+#     index = str(user.find_user_index(user_class.username, "username"))
+#     new_range = "users!A"+index
+#     new_value = int(user_class.workouts_left) - 1
+#     gs.SHEET.values_update(
+#         new_range,
+#         params={
+#             'valueInputOption': 'USER_ENTERED'
+#         },
+#         body={
+#             'values': [[user_class.username, user_class.email, user_class.first_name, user_class.last_name, user_class.athlete_type, new_value]]
+#         }
+#     )
 
 def update_event_attendees(event_id, operation, user_class):
     """
@@ -245,7 +245,7 @@ def update_event_attendees(event_id, operation, user_class):
             print("Signing up for workout...\n")
             updated_worksheet = gs.SHEET.worksheet(event_id)
             updated_worksheet.append_row([user_class.username])
-            update_workout(user_class)
+            ud.update_workout(user_class)
             print("!!!")
             print("Successfully signed up for workout! Returning to main menu.")
             print("!!!\n")
@@ -255,16 +255,16 @@ def update_event_attendees(event_id, operation, user_class):
 END OF USER ACTIONS -------------------------------------------------------------------------
 """
 
-def update_user_class(ind):
-    """
-    Uses the passed index number to find user on Google Sheet and create the user object.
-    """
-    values = gs.SHEET.worksheet("users").row_values(ind)
-    if values[4] == "workout":
-        user_class = user.Workout_User(values[0], values[1], values[2], values[3], values[4], values[5])
-    elif values[4] == "martial arts":
-        user_class = user.Martial_Arts_User(values[0], values[1], values[2], values[3], values[4], values[6])
-    return user_class
+# def update_user_class(ind):
+#     """
+#     Uses the passed index number to find user on Google Sheet and create the user object.
+#     """
+#     values = gs.SHEET.worksheet("users").row_values(ind)
+#     if values[4] == "workout":
+#         user_class = user.Workout_User(values[0], values[1], values[2], values[3], values[4], values[5])
+#     elif values[4] == "martial arts":
+#         user_class = user.Martial_Arts_User(values[0], values[1], values[2], values[3], values[4], values[6])
+#     return user_class
 
 def verify_username():
     """
@@ -278,7 +278,7 @@ def verify_username():
         if username == "exit":
             welcome()
         elif index > 0:
-            user_class = update_user_class(index)
+            user_class = ud.update_user_class(index)
             verify_email(user_class)
             break
         else:
@@ -430,69 +430,70 @@ def view_workouts():
             events_list.append(event['id'])
             print(index, "-", start.replace("T", " ").replace(":00+02:00", ""), event['summary'])
     
-    choice = input("Please input the number of the workout you choose from above:\n")
-    event_id = events_list[int(choice)-1]
-    chosen_workout = gs.CALENDAR.events().get(calendarId=gs.CALENDAR_ID, eventId=events_list[int(choice)-1]).execute()
-    start = chosen_workout['start'].get('dateTime', chosen_workout['start'].get('date'))
-    start = start.replace("T", " ").replace(":00+02:00", "")
-    print("You chose the following workout:")
-    print(f"Name: {chosen_workout['summary']}, Date: {start}")
-    try:
-        sheet_check = gs.SHEET.worksheet(event_id)
-    except:
-        sheet_check = Null
-    if "TRX" in chosen_workout["summary"] or "Cross Training" in chosen_workout["summary"]:
-        if sheet_check == Null:
-            print("There are no registered users for this class.\n")
+    choice = input("Please input the number of the workout you choose from above, or type 'exit' to return:\n")
+    if choice.lower() != "exit":
+        event_id = events_list[int(choice)-1]
+        chosen_workout = gs.CALENDAR.events().get(calendarId=gs.CALENDAR_ID, eventId=events_list[int(choice)-1]).execute()
+        start = chosen_workout['start'].get('dateTime', chosen_workout['start'].get('date'))
+        start = start.replace("T", " ").replace(":00+02:00", "")
+        print("You chose the following workout:")
+        print(f"Name: {chosen_workout['summary']}, Date: {start}")
+        try:
+            sheet_check = gs.SHEET.worksheet(event_id)
+        except:
+            sheet_check = Null
+        if "TRX" in chosen_workout["summary"] or "Cross Training" in chosen_workout["summary"]:
+            if sheet_check == Null:
+                print("There are no registered users for this class.\n")
+            else:
+                print("The following users are registered:")
+                usernames = gs.SHEET.worksheet(chosen_workout["id"]).col_values(1)
+                for username in usernames:
+                    print(username)
+            print("\n")
         else:
             print("The following users are registered:")
-            usernames = SHEET.worksheet(chosen_workout["id"]).col_values(1)
-            for username in usernames:
-                print(username)
-        print("\n")
-    else:
-        print("The following users are registered:")
-        index = 0
-        ma_users = gs.SHEET.worksheet("users").col_values(7)
-        usernames = gs.SHEET.worksheet("users").col_values(1)
-        for ma_user in ma_users:
-            index += 1
-            if ma_user == chosen_workout["summary"]:
-                print(usernames[index-1])
-        print("\n")
+            index = 0
+            ma_users = gs.SHEET.worksheet("users").col_values(7)
+            usernames = gs.SHEET.worksheet("users").col_values(1)
+            for ma_user in ma_users:
+                index += 1
+                if ma_user == chosen_workout["summary"]:
+                    print(usernames[index-1])
+            print("\n")
     admin_actions()
 
-def edit_item(index, user_class, item):
-    """
-    Gets user index, the created object and the item to change.
-    Changes the item in the object so it can be returned to the GSheet.
-    """
-    new_range = "users!A"+str(index)
-    new_value = input("Provide new value:\n")
-    setattr(user_class, item, new_value)
-    item_str = item.replace("_", " ").capitalize()
-    if user_class.athlete_type == "workout":
-        gs.SHEET.values_update(
-            new_range,
-            params={
-                'valueInputOption': 'USER_ENTERED'
-            },
-            body={
-                'values': [[user_class.username, user_class.email, user_class.first_name, user_class.last_name, user_class.athlete_type, user_class.workouts_left]]
-            }
-        )
-        print(f"{item_str} updated!")
-    else:
-        gs.SHEET.values_update(
-            new_range,
-            params={
-                'valueInputOption': 'USER_ENTERED'
-            },
-            body={
-                'values': [[user_class.username, user_class.email, user_class.first_name, user_class.last_name, user_class.athlete_type, "", user_class.athlete_group]]
-            }
-        )
-        print(f"{item_str} updated!")
+# def ud.edit_item(index, user_class, item):
+#     """
+#     Gets user index, the created object and the item to change.
+#     Changes the item in the object so it can be returned to the GSheet.
+#     """
+#     new_range = "users!A"+str(index)
+#     new_value = input("Provide new value:\n")
+#     setattr(user_class, item, new_value)
+#     item_str = item.replace("_", " ").capitalize()
+#     if user_class.athlete_type == "workout":
+#         gs.SHEET.values_update(
+#             new_range,
+#             params={
+#                 'valueInputOption': 'USER_ENTERED'
+#             },
+#             body={
+#                 'values': [[user_class.username, user_class.email, user_class.first_name, user_class.last_name, user_class.athlete_type, user_class.workouts_left]]
+#             }
+#         )
+#         print(f"{item_str} updated!")
+#     else:
+#         gs.SHEET.values_update(
+#             new_range,
+#             params={
+#                 'valueInputOption': 'USER_ENTERED'
+#             },
+#             body={
+#                 'values': [[user_class.username, user_class.email, user_class.first_name, user_class.last_name, user_class.athlete_type, "", user_class.athlete_group]]
+#             }
+#         )
+#         print(f"{item_str} updated!")
 
 def admin_edit_user_menu(index, user_class):
     """
@@ -513,18 +514,18 @@ def admin_edit_user_menu(index, user_class):
     if choice == "6":
         admin_actions()
     elif choice == "1":
-        edit_item(index, user_class, "username")
+        ud.edit_item(index, user_class, "username")
     elif choice == "2":
-        edit_item(index, user_class, "email")
+        ud.edit_item(index, user_class, "email")
     elif choice == "3":
-        edit_item(index, user_class, "first_name")
+        ud.edit_item(index, user_class, "first_name")
     elif choice == "4":
-        edit_item(index, user_class, "last_name")
+        ud.edit_item(index, user_class, "last_name")
     elif choice == "5":
         if user_class.athlete_type == "workout":
-            edit_item(index, user_class, "workouts_left")
+            ud.edit_item(index, user_class, "workouts_left")
         else:
-            edit_item(index, user_class, "athlete_group")
+            ud.edit_item(index, user_class, "athlete_group")
     admin_actions()
 
 def admin_display_user_data():
@@ -540,7 +541,7 @@ def admin_display_user_data():
         admin_display_user_data()
     else:
         print("User found! Fetching data...\n")
-        user_class = update_user_class(user_index)
+        user_class = ud.update_user_class(user_index)
         print(f"You have chosen username '{user_class.username}':")
         print(f"Full name: {user_class.first_name} {user_class.last_name}")
         print(f"Email: {user_class.email}")

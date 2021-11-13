@@ -53,7 +53,7 @@ def edit_item(index, user_class, item):
                 'values': [[user_class.username, user_class.email, user_class.first_name, user_class.last_name, user_class.athlete_type, user_class.workouts_left]]
             }
         )
-        print(f"{item_str} updated!")
+        print(f"{item_str} updated!\n")
     else:
         gs.SHEET.values_update(
             new_range,
@@ -64,4 +64,4 @@ def edit_item(index, user_class, item):
                 'values': [[user_class.username, user_class.email, user_class.first_name, user_class.last_name, user_class.athlete_type, "", user_class.athlete_group]]
             }
         )
-        print(f"{item_str} updated!")
+        print(f"{item_str} updated!\n")

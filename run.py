@@ -4,101 +4,15 @@ Main file
 
 """
 The following section has all the imports that the app requires to work.
-gspread -> Google Sheets
 datetime -> Date and time functions 
-build -> creates the session for the Google Calendar
-Credentials -> Google authentication (required)
-Null -> user for null events
+gservices -> gservices module, containing all Google services code
+Null -> used for null events
 """
-# import gspread
 import datetime
 import gservices as gs
-# import admin_code
-# import user_code
-# import sign_up_code
 import user
 import user_data as ud
 from pyasn1.type.univ import Null
-# from googleapiclient.discovery import build
-# from google.oauth2.service_account import Credentials
-
-# """
-# Scope required for Google Sheets, Calendar and Drive to work
-# """
-# SCOPE = [
-#     "https://www.googleapis.com/auth/spreadsheets",
-#     "https://www.googleapis.com/auth/drive.file",
-#     "https://www.googleapis.com/auth/drive",
-#     "https://www.googleapis.com/auth/calendar"
-#     ]
-
-# """
-# Global variables used for Google Sheets and Calendar
-# """
-# CREDS = Credentials.from_service_account_file("creds.json") # Credentials file
-# SCOPED_CREDS = CREDS.with_scopes(SCOPE) # Scoped credentials
-# GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS) # Google Sheets authorization
-# SHEET = GSPREAD_CLIENT.open("trxtreme") # Opens selected Google Sheet
-# SHEET_ID = "1izyPTgGIt_uKegNn2I0lFUdrAuXPJisNeXgvzN2EG_g" # The selected Google Sheet ID, used in some functions
-# CALENDAR = build("calendar", "v3", credentials = CREDS) # Google Calendar service build
-# gs.CALENDAR_ID = "trxtreme2021@gmail.com" # Google Calendar ID
-
-# """
-# Start of user class and subclasses
-# """
-# class User:
-#     """
-#     Base user class that will pull data from Google Sheets when called.
-#     """
-#     def __init__(self, username, email, first_name, last_name, athlete_type):
-#         self.username = username
-#         self.email = email
-#         self.first_name = first_name
-#         self.last_name = last_name
-#         self.athlete_type = athlete_type
-
-# class Workout_User(User):
-#     """
-#     Workout user class that has an extra "workouts left" attribute that counts how many times they can work out.
-#     """
-#     def __init__(self, username, email, first_name, last_name, athlete_type, workouts_left):
-#         super().__init__(username, email, first_name, last_name, athlete_type)
-#         self.workouts_left = workouts_left
-
-# class Martial_Arts_User(User):
-#     """
-#     Martial arts user class that has the user's athlete group, which dictates which dates they will join."
-#     """
-#     def __init__(self, username, email, first_name, last_name, athlete_type, athlete_group):
-#         super().__init__(username, email, first_name, last_name, athlete_type)
-#         self.athlete_group = athlete_group
-
-# """
-# End of user class and subclasses
-# """
-
-# def find_user_index(data, type):
-#     """
-#     Function to check if username or email exists.
-#     It was created as it needs to be called multiple times.
-#     It gets the data and the type, looks for the data in the appropriate column depending on type and returns an index number.
-#     """
-#     index = 0
-#     if type == "username":
-#         usernames = gs.SHEET.worksheet("users").col_values(1)
-#         if data in usernames:
-#             for username in usernames:
-#                 index += 1
-#                 if username == data:
-#                     break
-#     elif type == "email":
-#         emails = gs.SHEET.worksheet("users").col_values(2)
-#         if data in emails:
-#             for email in emails:
-#                 index += 1
-#                 if email == data:
-#                     break
-#     return index
 
 """
 START OF USER ACTIONS -------------------------------------------------------------------------
@@ -383,13 +297,13 @@ def sign_up():
         else:
             print("Incorrect choice. Returning to user creation.\n")
             sign_up()
-    
-    print(new_user)
+
     updated_worksheet = gs.SHEET.worksheet("users")
     updated_worksheet.append_row(new_user)
 
     print("Sign up complete! Please speak with the trainer to begin attending!")
     print("Returning to main menu...\n")
+    welcome()
 
 """
 END OF SIGN UP -------------------------------------------------------------------------

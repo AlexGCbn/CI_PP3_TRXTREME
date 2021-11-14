@@ -168,7 +168,7 @@ def update_event_attendees(event_id, operation, user_class):
     if operation == "sign_up":
         try:
             sheet_check = gs.SHEET.worksheet(event_id)
-        except:  # pylint: disable=bare-except
+        except:
             sheet_check = Null
         if sheet_check == Null:
             # Credits: start of code, REF#1
@@ -339,7 +339,56 @@ def sign_up():
 # START OF ADMIN ACTIONS
 
 
-def view_workouts():
+def view_attendees(events_list):
+    """
+    Provides option to choose an event to view the attendees
+    """
+    choice = input(
+        "Please input the number of the workout you choose from above, or type 'exit' to return:\n"
+    )
+    if choice.lower() != "exit":
+        event_id = events_list[int(choice) - 1]
+        chosen_workout = (
+            # pylint: disable=no-member
+            gs.CALENDAR.events()
+            .get(calendarId=gs.CALENDAR_ID, eventId=events_list[int(choice) - 1])
+            .execute()
+        )
+        start = chosen_workout["start"].get(
+            "dateTime", chosen_workout["start"].get("date")
+        )
+        start = start.replace("T", " ").replace(":00+02:00", "")
+        print("You chose the following workout:")
+        print(f"Name: {chosen_workout['summary']}, Date: {start}")
+        try:
+            sheet_check = gs.SHEET.worksheet(event_id)
+        except:
+            sheet_check = Null
+        if (
+            "TRX" in chosen_workout["summary"]
+            or "Cross Training" in chosen_workout["summary"]
+        ):
+            if sheet_check == Null:
+                print("There are no registered users for this class.\n")
+            else:
+                print("The following users are registered:")
+                usernames = gs.SHEET.worksheet(chosen_workout["id"]).col_values(1)
+                for username in usernames:
+                    print(username)
+            print("\n")
+        else:
+            print("The following users are registered:")
+            index = 0
+            ma_users = gs.SHEET.worksheet("users").col_values(7)
+            usernames = gs.SHEET.worksheet("users").col_values(1)
+            for ma_user in ma_users:
+                index += 1
+                if ma_user == chosen_workout["summary"]:
+                    print(usernames[index - 1])
+            print("\n")
+
+
+def get_events():
     """
     Gets a date from admin and displays the schedule for the day.
     Provides the option to see who is in each workout/class.
@@ -356,7 +405,7 @@ def view_workouts():
         )
     except ValueError:
         print("Date incorrect. Please try again!")
-        view_workouts()
+        get_events()
     date_no_time = new_date.replace("T00:00:00Z", "")
     print(date_no_time)
 
@@ -390,50 +439,7 @@ def view_workouts():
                 start.replace("T", " ").replace(":00+02:00", ""),
                 event["summary"],
             )
-
-    choice = input(
-        "Please input the number of the workout you choose from above, or type 'exit' to return:\n"
-    )
-    if choice.lower() != "exit":
-        event_id = events_list[int(choice) - 1]
-        chosen_workout = (
-            # pylint: disable=no-member
-            gs.CALENDAR.events()
-            .get(calendarId=gs.CALENDAR_ID, eventId=events_list[int(choice) - 1])
-            .execute()
-        )
-        start = chosen_workout["start"].get(
-            "dateTime", chosen_workout["start"].get("date")
-        )
-        start = start.replace("T", " ").replace(":00+02:00", "")
-        print("You chose the following workout:")
-        print(f"Name: {chosen_workout['summary']}, Date: {start}")
-        try:
-            sheet_check = gs.SHEET.worksheet(event_id)
-        except:  # pylint: disable=bare-except
-            sheet_check = Null
-        if (
-            "TRX" in chosen_workout["summary"]
-            or "Cross Training" in chosen_workout["summary"]
-        ):
-            if sheet_check == Null:
-                print("There are no registered users for this class.\n")
-            else:
-                print("The following users are registered:")
-                usernames = gs.SHEET.worksheet(chosen_workout["id"]).col_values(1)
-                for username in usernames:
-                    print(username)
-            print("\n")
-        else:
-            print("The following users are registered:")
-            index = 0
-            ma_users = gs.SHEET.worksheet("users").col_values(7)
-            usernames = gs.SHEET.worksheet("users").col_values(1)
-            for ma_user in ma_users:
-                index += 1
-                if ma_user == chosen_workout["summary"]:
-                    print(usernames[index - 1])
-            print("\n")
+    view_attendees(events_list)
     admin_actions()
 
 
@@ -517,7 +523,7 @@ def admin_actions():
     if choice == "1":
         admin_display_user_data()
     elif choice == "2":
-        view_workouts()
+        get_events()
     elif choice == "3" or choice.lower() == "exit":
         welcome()
     else:

@@ -6,10 +6,11 @@ Main file
 # datetime -> Date and time functions
 # gservices -> gservices module, containing all Google services code
 # Null -> used for null events
-# REF#1
+# REF#1:
 # https://learndataanalysis.org/add-new-worksheets-to-existing-google-sheets-file-with-google-sheets-api/
 
 import datetime
+import sys
 from pyasn1.type.univ import Null
 import gservices as gs
 import user
@@ -168,7 +169,7 @@ def update_event_attendees(event_id, operation, user_class):
     if operation == "sign_up":
         try:
             sheet_check = gs.SHEET.worksheet(event_id)
-        except:
+        except:  # pylint: disable=bare-except
             sheet_check = Null
         if sheet_check == Null:
             # Credits: start of code, REF#1
@@ -362,7 +363,7 @@ def view_attendees(events_list):
         print(f"Name: {chosen_workout['summary']}, Date: {start}")
         try:
             sheet_check = gs.SHEET.worksheet(event_id)
-        except:
+        except:  # pylint: disable=bare-except
             sheet_check = Null
         if (
             "TRX" in chosen_workout["summary"]
@@ -561,29 +562,26 @@ def welcome():
     print("----")
     print("Welcome to TRXtreme! Please choose an option:\n")
 
-    while True:
-        print("1. Sign in (Already a user)")
-        print("2. Sign up (Not a user)")
-        print("3. Admin sign in")
-        print("4. Terminate program\n")
+    print("1. Sign in (Already a user)")
+    print("2. Sign up (Not a user)")
+    print("3. Admin sign in")
+    print("4. Terminate program\n")
 
-        user_answer = input("Enter choice:\n")
+    user_answer = input("Enter choice:\n")
 
-        if user_answer == "1":
-            verify_username()
-            break
-        elif user_answer == "2":
-            sign_up()
-            break
-        elif user_answer == "3":
-            admin_sign_in()
-            break
-        elif user_answer == "4" or user_answer.lower() == "exit":
-            quit()
-        else:
-            print(
-                f"{user_answer} is not an acceptable key. Please choose a correct one.\n"
-            )
+    if user_answer == "1":
+        verify_username()
+    elif user_answer == "2":
+        sign_up()
+    elif user_answer == "3":
+        admin_sign_in()
+    elif user_answer == "4" or user_answer.lower() == "exit":
+        sys.exit()
+    else:
+        print(
+            f"{user_answer} is not an acceptable key. Please try again.\n"
+        )
+        welcome()
 
 
 welcome()

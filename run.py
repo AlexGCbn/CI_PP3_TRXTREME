@@ -91,9 +91,7 @@ def display_user_data(user_class):
             events = events_result.get("items", [])
             for event in events:
                 events_list.append(event["id"])
-                start = event["start"].get(
-                    "dateTime", event["start"].get("date")
-                    )
+                start = event["start"].get("dateTime", event["start"].get("date"))
                 start = start.replace("T", " ").replace(":00+02:00", "")
             print(f"Your next training session is on: {start}")
 
@@ -139,8 +137,10 @@ def workout_sign_up(user_class):
                 event["summary"],
             )
 
-    choice = input("Please input the number of the workout \
-        you choose from above:\n")
+    choice = input(
+        "Please input the number of the workout \
+        you choose from above:\n"
+    )
     event_id = events_list[int(choice) - 1]
     chosen_workout = (
         # pylint: disable=no-member
@@ -148,9 +148,7 @@ def workout_sign_up(user_class):
         .get(calendarId=gs.CALENDAR_ID, eventId=events_list[int(choice) - 1])
         .execute()
     )
-    start = chosen_workout["start"].get(
-        "dateTime", chosen_workout["start"].get("date")
-        )
+    start = chosen_workout["start"].get("dateTime", chosen_workout["start"].get("date"))
     start = start.replace("T", " ").replace(":00+02:00", "")
     print("You chose the following workout:\n")
     print(f"Name: {chosen_workout['summary']}, Date: {start}")
@@ -247,6 +245,41 @@ def verify_email(user_class):
 # START OF SIGN UP
 
 
+def martial_sign_up(choice, new_user):
+    """
+    Gets the user's choice of martial arts class
+    Checks if there is room for more athletes (<12)
+    Returns the user instance with appropriate data
+    """
+    level_count = 0
+    if choice == "1":
+        counters =[]
+        index = 0
+        counters.append(ud.count_athletes("Junior 1"))
+        counters.append(ud.count_athletes("Junior 2"))
+        counters.append(ud.count_athletes("Junior 3"))
+        for counter in counters:
+            index += 1
+            if counter < 12:
+                new_user.append("Junior "+str(index))
+                break
+    elif choice == "2":
+        new_user.append("Teenage MA")
+    elif choice == "3":
+        new_user.append("Adult MA")
+    elif choice == "4":
+        new_user.append("Professional MA")
+    else:
+        print("Incorrect choice. Returning to user creation.\n")
+        sign_up()
+    level_count = ud.count_athletes(new_user[6])
+    if level_count >= 12:
+        print("Too many athletes in selected level. Please contact the trainer!")
+        print("Returning to main menu...\n")
+        welcome()
+    return new_user
+
+
 def sign_up():
     """
     Creates a new user from the parameters provided.
@@ -291,53 +324,7 @@ def sign_up():
         level_choice = input(
             "Please enter 1 for Junior level, 2 for Teenage, 3 for Adult or 4 for Professional:\n"
         )
-        level_athletes = gs.SHEET.worksheet("users").col_values(7)
-        level_count = 0
-        if level_choice == "1":
-            new_user.append("Junior 1")
-            for athlete in level_athletes:
-                if athlete == "Junior 1":
-                    level_count += 1
-            if level_count >= 12:
-                new_user.pop()
-                new_user.append("Junior 2")
-                level_count = 0
-                for athlete in level_athletes:
-                    if athlete == "Junior 2":
-                        level_count += 1
-                if level_count >= 12:
-                    new_user.pop()
-                    new_user.append("Junior 3")
-                    level_count = 0
-                    for athlete in level_athletes:
-                        if athlete == "Junior 3":
-                            level_count += 1
-                    if level_count >= 12:
-                        print(
-                            "Too many athletes in selected level. Please contact the trainer!"
-                        )
-        elif level_choice == "2":
-            new_user.append("Teenage MA")
-            for athlete in level_athletes:
-                if athlete == "Teenage MA":
-                    level_count += 1
-        elif level_choice == "3":
-            new_user.append("Adult MA")
-            for athlete in level_athletes:
-                if athlete == "Adult MA":
-                    level_count += 1
-        elif level_choice == "4":
-            new_user.append("Professional MA")
-            for athlete in level_athletes:
-                if athlete == "Professional MA":
-                    level_count += 1
-            if level_count >= 12:
-                print(
-                    "Too many athletes in selected level. Please contact the trainer!"
-                )
-        else:
-            print("Incorrect choice. Returning to user creation.\n")
-            sign_up()
+        new_user = martial_sign_up(level_choice, new_user)
 
     updated_worksheet = gs.SHEET.worksheet("users")
     updated_worksheet.append_row(new_user)

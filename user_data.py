@@ -95,3 +95,16 @@ def edit_item(index, user_class, item):
             },
         )
         print(f"{item_str} updated!\n")
+
+
+def count_athletes(level):
+    """
+    Counts how many athletes are in specified level
+    Returns the number
+    """
+    level_athletes = gs.SHEET.worksheet("users").col_values(7)
+    level_count = 0
+    for athlete in level_athletes:
+        if athlete == level:
+            level_count += 1
+    return level_count

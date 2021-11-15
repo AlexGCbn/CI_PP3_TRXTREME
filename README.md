@@ -34,24 +34,23 @@ It offers options for first time users, signed up users and administrators.
 
 ### As a first time user, I want to:
 1. Be able to sign up.
-2. Be able to see my data after signing up.
-3. Have the option to sign up for the appropriate martial arts level.
-4. Find the menu options easily.
+2. Have the option to sign up for the appropriate martial arts level.
+3. Find the menu options easily.
 
 ### As a recurring martial arts user, I want to:
-5. Have easy sign in option.
-6. See my next martial arts class.
+4. Have easy sign in option.
+5. See my next martial arts class.
 
 ### As a recurring workouts user, I want to:
-7. Have easy sign in option.
-8. Be able to sign in for the workout I want.
-9. See how many workouts I have left. 
-10. Not be able to register for the same workout twice.
+6. Have easy sign in option.
+7. Be able to sign in for the workout I want.
+8. See how many workouts I have left. 
+9. Not be able to register for the same workout twice.
 
 ### As the administrator, I want to:
-11. Be able to see registered users for specific classes.
-12. Have the option to view user data.
-13. Have the option to edit user data.
+10. Be able to see registered users for specific classes.
+11. Have the option to view user data.
+12. Have the option to edit user data.
 
 
 ## Goals:
@@ -80,7 +79,7 @@ It offers options for first time users, signed up users and administrators.
 * Informs them if the username or email is incorrect.
 * Provides escape option.
 
-#### User stories covered: 2, 5, 7
+#### User stories covered: 5, 7
 
 ### Workout user options menu:
 ![Workout user options menu image](docs/features/workout_user_options.png)
@@ -181,9 +180,6 @@ No errors were left after cleaning up the code.
 Pylint was used as a secondary linter/validator.
 There are some errors, which have an explanation as to why they were left unchanged.
 
-### URI validation:
-![CSS URI validation result image](docs/images/page-css-valid.png)
-
 ### run.py:
 ![run.py file Pylint validation](docs/validation/pylint_run.png)
 E1101: no-member -> The "events" member is used only for Google API operations and it is written to function correctly.
@@ -208,14 +204,42 @@ R0903: too-few-public-methods -> Again same issue. Our classes were used for dat
 |-------------|------------|---------------------|-------------------|
 | Sign up | In main menu, press 2. Sign up | Get sign up menu | Works as expected |
 | Sign up | After getting sign up menu, input data | Be informed if data is incorrect | Works as expected |
+| Sign up | After getting sign up menu, input data | Be informed if sign up was successful | Works as expected |
 
 <details><summary>Screenshots</summary>
 
-![IMAGE DESCRIPTION](FEATURE IMAGE)
+![Sign up form image](docs/validation_testing/1_sign_up.png)
+![Sign up form already taken data image](docs/validation_testing/2_sign_up_taken.png)
+![Sign up form invalid data image](docs/validation_testing/3_sign_up_invalid.png)
+![Sign up form complete image](docs/validation_testing/4_sign_up_complete.png)
 
 </details>
 
-2. Be able to see my data after signing up.
+2. Have the option to sign up for the appropriate martial arts level.
+
+| **Feature** | **Action** | **Expected Result** | **Actual Result** |
+|-------------|------------|---------------------|-------------------|
+| Sign up | When martial arts is chosen, provide options for level | After choosing martial arts in sign up, levels appear as options to select | Works as expected |
+
+<details><summary>Screenshots</summary>
+
+![Martial arts levels selection](docs/validation_testing/5_choose_martial_arts_level.png)
+
+</details>
+
+3. Find the menu options easily.
+
+| **Feature** | **Action** | **Expected Result** | **Actual Result** |
+|-------------|------------|---------------------|-------------------|
+| Main menu | Open application | See list of options | Works as expected |
+
+<details><summary>Screenshots</summary>
+
+![Main menu image](docs/validation_testing/6_main_menu.png)
+
+</details>
+
+4. Have easy sign in option.
 
 | **Feature** | **Action** | **Expected Result** | **Actual Result** |
 |-------------|------------|---------------------|-------------------|
@@ -227,7 +251,7 @@ R0903: too-few-public-methods -> Again same issue. Our classes were used for dat
 
 </details>
 
-3. Have the option to sign up for the appropriate martial arts level.
+5. See my next martial arts class.
 
 | **Feature** | **Action** | **Expected Result** | **Actual Result** |
 |-------------|------------|---------------------|-------------------|
@@ -239,7 +263,7 @@ R0903: too-few-public-methods -> Again same issue. Our classes were used for dat
 
 </details>
 
-4. Find the menu options easily.
+6. Have easy sign in option.
 
 | **Feature** | **Action** | **Expected Result** | **Actual Result** |
 |-------------|------------|---------------------|-------------------|
@@ -251,7 +275,7 @@ R0903: too-few-public-methods -> Again same issue. Our classes were used for dat
 
 </details>
 
-5. Have easy sign in option.
+7. Be able to sign in for the workout I want.
 
 | **Feature** | **Action** | **Expected Result** | **Actual Result** |
 |-------------|------------|---------------------|-------------------|
@@ -263,7 +287,7 @@ R0903: too-few-public-methods -> Again same issue. Our classes were used for dat
 
 </details>
 
-6. See my next martial arts class.
+8. See how many workouts I have left. 
 
 | **Feature** | **Action** | **Expected Result** | **Actual Result** |
 |-------------|------------|---------------------|-------------------|
@@ -275,7 +299,7 @@ R0903: too-few-public-methods -> Again same issue. Our classes were used for dat
 
 </details>
 
-7. Have easy sign in option.
+9. Not be able to register for the same workout twice.
 
 | **Feature** | **Action** | **Expected Result** | **Actual Result** |
 |-------------|------------|---------------------|-------------------|
@@ -287,7 +311,7 @@ R0903: too-few-public-methods -> Again same issue. Our classes were used for dat
 
 </details>
 
-8. Be able to sign in for the workout I want.
+10. Be able to see registered users for specific classes.
 
 | **Feature** | **Action** | **Expected Result** | **Actual Result** |
 |-------------|------------|---------------------|-------------------|
@@ -299,7 +323,7 @@ R0903: too-few-public-methods -> Again same issue. Our classes were used for dat
 
 </details>
 
-9. See how many workouts I have left. 
+11. Have the option to view user data.
 
 | **Feature** | **Action** | **Expected Result** | **Actual Result** |
 |-------------|------------|---------------------|-------------------|
@@ -311,43 +335,7 @@ R0903: too-few-public-methods -> Again same issue. Our classes were used for dat
 
 </details>
 
-10. Not be able to register for the same workout twice.
-
-| **Feature** | **Action** | **Expected Result** | **Actual Result** |
-|-------------|------------|---------------------|-------------------|
-| FEATURE | ACTION | EXPECTED RESULT | Works as expected |
-
-<details><summary>Screenshots</summary>
-
-![IMAGE DESCRIPTION](FEATURE IMAGE)
-
-</details>
-
-11. Be able to see registered users for specific classes.
-
-| **Feature** | **Action** | **Expected Result** | **Actual Result** |
-|-------------|------------|---------------------|-------------------|
-| FEATURE | ACTION | EXPECTED RESULT | Works as expected |
-
-<details><summary>Screenshots</summary>
-
-![IMAGE DESCRIPTION](FEATURE IMAGE)
-
-</details>
-
-12. Have the option to view user data.
-
-| **Feature** | **Action** | **Expected Result** | **Actual Result** |
-|-------------|------------|---------------------|-------------------|
-| FEATURE | ACTION | EXPECTED RESULT | Works as expected |
-
-<details><summary>Screenshots</summary>
-
-![IMAGE DESCRIPTION](FEATURE IMAGE)
-
-</details>
-
-13. Have the option to edit user data.
+12. Have the option to edit user data.
 
 | **Feature** | **Action** | **Expected Result** | **Actual Result** |
 |-------------|------------|---------------------|-------------------|

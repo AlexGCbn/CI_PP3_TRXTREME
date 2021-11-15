@@ -292,7 +292,6 @@ def sign_up():
     while True:
         username = input("Please enter your new username:\n")
         user_exists = user.find_user_index(username, "username")
-        print(user_exists)
         if username.lower() == "exit":
             welcome()
         elif user_exists > 0:

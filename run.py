@@ -332,20 +332,20 @@ def sign_up():
             break
     first_name = input("Please enter your first name:\n")
     while True:
-        if len(first_name) >= 2:
+        if len(first_name) >= 2 and len(first_name) <= 30:
             break
         else:
             first_name = input(
-                "Name cannot be less than 2 letters."
+                "Name cannot be less than 2 letters or more than 30."
                 " Please try again.\n"
             )
     last_name = input("Please enter your last name:\n")
     while True:
-        if len(last_name) >= 2:
+        if len(last_name) >= 2 and len(last_name) <= 30:
             break
         else:
             last_name = input(
-                "Last name cannot be less than 2 letters."
+                "Last name cannot be less than 2 letters or more than 30."
                 " Please try again.\n"
             )
     new_user = [username, email, first_name, last_name]

@@ -80,7 +80,7 @@ It offers options for first time users, signed up users and administrators.
 * Informs them if the username or email is incorrect.
 * Provides escape option.
 
-#### User stories covered: 5, 7
+#### User stories covered: 2, 5, 7
 
 ### Workout user options menu:
 ![Workout user options menu image](docs\features\workout_user_options.png)
@@ -113,6 +113,13 @@ It offers options for first time users, signed up users and administrators.
 * Validates data based on length.
 
 #### User stories covered: 1
+
+### Martial arts sign up class:
+![Martial arts sign up class](docs\features\ma_user_sign_up.png)
+* Provides the signing up user with a choice of classes.
+* Checks if selected class has less than 12 people.
+
+#### User stories covered: 3
 
 ### Admin class & workout viewer:
 ![Admin class viewer image](docs\features\admin_class_view.png)

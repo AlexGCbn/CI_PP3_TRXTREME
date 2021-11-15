@@ -145,17 +145,9 @@ It offers options for first time users, signed up users and administrators.
 
 ## Design:
 
-DESIGN INFO
-
-### Colours:
-
-
-
-### Fonts:
-FONTS INFO
-
 ### Structure: 
-STRUCTURE INFO
+The system's structure was designed as a flowchart first. To design the flowchart, I used [Lucidchart](https://www.lucidchart.com/).
+![Flowchart image](docs/flowchart/flowchart.png)
 
 ### Wireframes:
 

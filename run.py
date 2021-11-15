@@ -84,7 +84,6 @@ def display_user_data(user_class):
 
         if user_class.athlete_group == "Junior 1":
             events_result = (
-                # pylint: disable=no-member
                 gs.CALENDAR.events()
                 .list(
                     calendarId=gs.CALENDAR_ID,
@@ -116,7 +115,6 @@ def workout_sign_up(user_class):
     now = datetime.datetime.utcnow().isoformat() + "Z"
     print("Getting upcoming events")
     events_result = (
-        # pylint: disable=no-member
         gs.CALENDAR.events()
         .list(
             calendarId=gs.CALENDAR_ID,
@@ -152,7 +150,6 @@ def workout_sign_up(user_class):
     )
     event_id = events_list[int(choice) - 1]
     chosen_workout = (
-        # pylint: disable=no-member
         gs.CALENDAR.events()
         .get(calendarId=gs.CALENDAR_ID, eventId=events_list[int(choice) - 1])
         .execute()
@@ -179,7 +176,7 @@ def update_event_attendees(event_id, operation, user_class):
     if operation == "sign_up":
         try:
             sheet_check = gs.SHEET.worksheet(event_id)
-        except:  # pylint: disable=bare-except
+        except:
             sheet_check = Null
         if sheet_check == Null:
             # Credits: start of code, REF#1
@@ -392,7 +389,6 @@ def view_attendees(events_list):
     if choice.lower() != "exit":
         event_id = events_list[int(choice) - 1]
         chosen_workout = (
-            # pylint: disable=no-member
             gs.CALENDAR.events()
             .get(calendarId=gs.CALENDAR_ID, eventId=events_list[int(choice)-1])
             .execute()
@@ -405,7 +401,7 @@ def view_attendees(events_list):
         print(f"Name: {chosen_workout['summary']}, Date: {start}")
         try:
             sheet_check = gs.SHEET.worksheet(event_id)
-        except:  # pylint: disable=bare-except
+        except:
             sheet_check = Null
         if (
             "TRX" in chosen_workout["summary"] or
@@ -455,7 +451,6 @@ def get_events():
 
     print(f"Getting events for date {date_no_time}...")
     events_result = (
-        # pylint: disable=no-member
         gs.CALENDAR.events()
         .list(
             calendarId=gs.CALENDAR_ID,

@@ -39,11 +39,11 @@ def update_user_class(ind):
     """
     values = gs.SHEET.worksheet("users").row_values(ind)
     if values[4] == "workout":
-        user_class = user.Workout_User(
+        user_class = user.WorkoutUser(
             values[0], values[1], values[2], values[3], values[4], values[5]
         )
     elif values[4] == "martial arts":
-        user_class = user.Martial_Arts_User(
+        user_class = user.MartialArtsUser(
             values[0], values[1], values[2], values[3], values[4], values[6]
         )
     return user_class

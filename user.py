@@ -18,7 +18,7 @@ class User:
         self.athlete_type = athlete_type
 
 
-class Workout_User(User):
+class WorkoutUser(User):
     """
     Workout user class that has an extra "workouts left"
     attribute that counts how many times they can work out.
@@ -32,7 +32,7 @@ class Workout_User(User):
         self.workouts_left = workouts_left
 
 
-class Martial_Arts_User(User):
+class MartialArtsUser(User):
     """
     Martial arts user class that has the user's athlete group,
     which dictates which dates they will join."

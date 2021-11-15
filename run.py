@@ -39,8 +39,8 @@ def successful_sign_in(user_class):
             else:
                 print("!!!")
                 print(
-                    "You do not have enough workouts left. \
-                        Please contact the trainer!"
+                    "You do not have enough workouts left. "
+                    "Please contact the trainer!"
                 )
                 print("!!!\n")
                 welcome()
@@ -64,13 +64,13 @@ def display_user_data(user_class):
     """
     if user_class.athlete_type == "workout":
         print(
-            f"Hello {user_class.first_name} {user_class.last_name}! \
-                Your remaining workouts are {user_class.workouts_left}"
+            f"Hello {user_class.first_name} {user_class.last_name}! "
+            f"Your remaining workouts are {user_class.workouts_left}"
         )
     elif user_class.athlete_type == "martial arts":
         print(
-            f"Hello {user_class.first_name} {user_class.last_name}! \
-                Your group is {user_class.athlete_group}"
+            f"Hello {user_class.first_name} {user_class.last_name}! "
+            f"Your group is {user_class.athlete_group}"
         )
 
         now = datetime.datetime.utcnow().isoformat() + "Z"
@@ -139,8 +139,8 @@ def workout_sign_up(user_class):
             )
 
     choice = input(
-        "Please input the number of the workout \
-        you choose from above:\n"
+        "Please input the number of the workout "
+        "you choose from above:\n"
     )
     event_id = events_list[int(choice) - 1]
     chosen_workout = (
@@ -181,8 +181,8 @@ def update_event_attendees(event_id, operation, user_class):
         if user_class.username in usernames:
             print("!!!")
             print(
-                "You are already registered for this workout! \
-                    Returning to main menu."
+                "You are already registered for this workout! "
+                "Returning to main menu."
             )
             print("!!!\n")
             welcome()
@@ -193,8 +193,8 @@ def update_event_attendees(event_id, operation, user_class):
             ud.update_workout(user_class)
             print("!!!")
             print(
-                "Successfully signed up for workout! \
-                Returning to main menu."
+                "Successfully signed up for workout! "
+                "Returning to main menu."
             )
             print("!!!\n")
             welcome()
@@ -288,13 +288,18 @@ def sign_up():
     while True:
         username = input("Please enter your new username:\n")
         user_exists = user.find_user_index(username, "username")
+        print(user_exists)
         if username.lower() == "exit":
             welcome()
         elif user_exists > 0:
             print(
-                "Username already in use. \
-                    Please use a different username or type \
-                        'exit' to go to main menu."
+                "Username already in use."
+                " Please use a different username or type"
+                " 'exit' to go to main menu."
+            )
+        elif len(username) < 4:
+            print(
+                "Username cannot be less than 4 characters. Please try again."
             )
         else:
             break
@@ -307,10 +312,24 @@ def sign_up():
             print(
                 "Email already in use. Please try again or type 'exit' to go to main menu."
             )
+        elif len(email) < 10:
+            print(
+                "Email cannot be less than 10 characters. Please try again."
+            )
         else:
             break
-    first_name = input("Please enter your new first name:\n")
+    first_name = input("Please enter your first name:\n")
+    while True:
+        if len(first_name) >= 2:
+            break
+        else:
+            first_name = input("Name cannot be less than 2 letters. Please try again.\n")
     last_name = input("Please enter your last name:\n")
+    while True:
+        if len(last_name) >= 2:
+            break
+        else:
+            last_name = input("Last name cannot be less than 2 letters. Please try again.\n")
     new_user = [username, email, first_name, last_name]
 
     print("Are you signing up for workouts or martial arts?")
@@ -548,7 +567,7 @@ def admin_sign_in():
                 break
             print("Password incorrect. Please try again!")
         else:
-            print("username incorrect. Please try again!")
+            print("Username incorrect. Please try again!")
 
 
 # END OF ADMIN ACTIONS

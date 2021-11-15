@@ -54,7 +54,7 @@ def find_user_index(data_value, type_value):
     appropriate column depending on type_value and returns an index number.
     """
     index = 0
-    if type == "username":
+    if type_value == "username":
         usernames = gs.SHEET.worksheet("users").col_values(1)
         if data_value in usernames:
             for username in usernames:

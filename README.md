@@ -109,7 +109,7 @@ It offers options for first time users, signed up users and administrators.
 ![Admin class viewer image](docs\features\admin_class_view.png)
 ![Admin class viewer image](docs\features\admin_workout_view.png)
 * Provides the administrator with information on classes/workouts.
-* Easy to use date picker.
+* Easy to use date picker, based on numbered list.
 
 #### User stories covered: 11
 
@@ -119,6 +119,13 @@ It offers options for first time users, signed up users and administrators.
 * Gives all user information and provides option to edit.
 
 #### User stories covered: 12
+
+### Admin user editor:
+![Admin user editor image](docs\features\admin_user_edit.png)
+* Provides the administrator with user data editing options.
+* Easy to use data picker, based on numbered list.
+
+#### User stories covered: 13
 
 ## Design:
 

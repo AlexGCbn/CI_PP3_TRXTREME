@@ -83,7 +83,7 @@ It offers options for first time users, signed up users and administrators.
 #### User stories covered: 2, 5, 7
 
 ### Workout user options menu:
-![Workout user options menu image](docs\features\workout_user_options.png)
+![Workout user options menu image](docs/features/workout_user_options.png)
 * Provides user options appropriate to workout users.
 * Gives the option of either signing up for a workout or viewing their remaining workouts.
 * Provides escape option.
@@ -91,7 +91,7 @@ It offers options for first time users, signed up users and administrators.
 #### User stories covered: 8, 9
 
 ### Workout sign up:
-![Workout sign up image](docs\features\workout_sign_up.png)
+![Workout sign up image](docs/features/workout_sign_up.png)
 * Provides next workouts.
 * Gives the user easy picking option.
 * Verifies if the user is sure they want to sign up.
@@ -100,14 +100,14 @@ It offers options for first time users, signed up users and administrators.
 #### User stories covered: 8, 10
 
 ### Remaining workouts:
-![Remaining workouts image](docs\features\remaining_workouts.png)
+![Remaining workouts image](docs/features/remaining_workouts.png)
 * Provides the user with information on their remaining workouts.
 
 #### User stories covered: 9
 
 ### Sign up:
-![Sign up image 1](docs\features\sign_up_1.png)
-![Sign up image 1](docs\features\sign_up_2.png)
+![Sign up image 1](docs/features/sign_up_1.png)
+![Sign up image 1](docs/features/sign_up_2.png)
 * Provides the user with the sign up menu.
 * Verifies if username or email already exist in database.
 * Validates data based on length.
@@ -115,56 +115,52 @@ It offers options for first time users, signed up users and administrators.
 #### User stories covered: 1
 
 ### Martial arts sign up class:
-![Martial arts sign up class](docs\features\ma_user_sign_up.png)
+![Martial arts sign up class](docs/features/ma_user_sign_up.png)
 * Provides the signing up user with a choice of classes.
 * Checks if selected class has less than 12 people.
 
 #### User stories covered: 3
 
 ### Admin class & workout viewer:
-![Admin class viewer image](docs\features\admin_class_view.png)
-![Admin class viewer image](docs\features\admin_workout_view.png)
+![Admin class viewer image](docs/features/admin_class_view.png)
+![Admin class viewer image](docs/features/admin_workout_view.png)
 * Provides the administrator with information on classes/workouts.
 * Easy to use date picker, based on numbered list.
 
 #### User stories covered: 11
 
 ### Admin user viewer:
-![Admin user viewer image](docs\features\admin_user_view.png)
+![Admin user viewer image](docs/features/admin_user_view.png)
 * Provides the administrator with information on selected user.
 * Gives all user information and provides option to edit.
 
 #### User stories covered: 12
 
 ### Admin user editor:
-![Admin user editor image](docs\features\admin_user_edit.png)
+![Admin user editor image](docs/features/admin_user_edit.png)
 * Provides the administrator with user data editing options.
 * Easy to use data picker, based on numbered list.
 
 #### User stories covered: 13
 
-## Design:
-
-### Structure: 
+## Structure: 
 The system's structure was designed as a flowchart first. To design the flowchart, I used [Lucidchart](https://www.lucidchart.com/).
 ![Flowchart image](docs/flowchart/flowchart.png)
-
-### Wireframes:
-
-<details>
-<summary>PAGE NAME</summary>
-
-![IMAGE DESCRIPTION](IMAGE LINK)
-</details>
-
 
 ## Technologies used:
 
 ### Languages
-  * LANGUAGE
+* Python
+
+### Python Libraries
+* datetime -> To get or convert data into datetime format. Used with Google Calendar mostly.
+* 
 
 ### Frameworks and tools
-  * FRAMEWORK
+* VSCode
+* Google Cloud API
+* Google Sheets API
+* Google Calendar API
 
 ## Testing:
 ### Validation

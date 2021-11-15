@@ -2,6 +2,10 @@
 Google services module, used to store all Google services API data.
 """
 
+# gspread -> Google Spreadsheets import
+# build -> Used to build calendar
+# Credentials -> Used with our credentials file, for access to Google APIs
+
 import gspread
 from googleapiclient.discovery import build
 from google.oauth2.service_account import Credentials

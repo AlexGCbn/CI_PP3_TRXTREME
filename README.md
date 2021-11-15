@@ -1,9 +1,9 @@
-# PROJECT TITLE
-In order to view the live site, click [here]().
+# TRXtreme Booking System
+In order to view the live site, click [here](https://trxtreme.herokuapp.com/).
 
-![Website mockup]()
+![Website mockup](docs/amiresponsive/amiresponsive.png)
 
-WEBSITE DESCRIPTION
+TRXtreme is a booking system for a martial arts school that also offers 
 
 ## Table of contents:
 

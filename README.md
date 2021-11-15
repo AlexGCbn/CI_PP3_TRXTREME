@@ -152,15 +152,12 @@ The system's structure was designed as a flowchart first. To design the flowchar
 ### Languages
 * Python
 
-### Python Libraries
-* datetime -> To get or convert data into datetime format. Used with Google Calendar mostly.
-* 
-
 ### Frameworks and tools
 * VSCode
 * Google Cloud API
 * Google Sheets API
 * Google Calendar API
+* Lucidchart
 
 ## Testing:
 ### Validation

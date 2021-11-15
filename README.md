@@ -44,13 +44,14 @@ It offers options for first time users, signed up users and administrators.
 
 ### As a recurring workouts user, I want to:
 7. Have easy sign in option.
-8. See how many workouts I have left. 
-9. Not be able to register for the same workout twice.
+8. Be able to sign in for the workout I want.
+9. See how many workouts I have left. 
+10. Not be able to register for the same workout twice.
 
 ### As the administrator, I want to:
-10. Be able to see registered users for specific classes.
-11. Have the option to view user data.
-12. Have the option to edit user data.
+11. Be able to see registered users for specific classes.
+12. Have the option to view user data.
+13. Have the option to edit user data.
 
 
 ## Goals:
@@ -82,12 +83,42 @@ It offers options for first time users, signed up users and administrators.
 #### User stories covered: 5, 7
 
 ### Workout user options menu:
-![Workout user options menu image](docs\features\workout_sign_up.png)
-* Asks users for their username and email.
-* Informs them if the username or email is incorrect.
+![Workout user options menu image](docs\features\workout_user_options.png)
+* Provides user options appropriate to workout users.
+* Gives the option of either signing up for a workout or viewing their remaining workouts.
 * Provides escape option.
 
-#### User stories covered: 5, 7
+#### User stories covered: 8, 9
+
+### Workout sign up:
+![Workout sign up image](docs\features\workout_sign_up.png)
+* Provides next workouts.
+* Gives the user easy picking option.
+* Verifies if the user is sure they want to sign up.
+* Does not let user sign up more than once.
+
+#### User stories covered: 8, 10
+
+### Remaining workouts:
+![Remaining workouts image](docs\features\remaining_workouts.png)
+* Provides the user with information on their remaining workouts.
+
+#### User stories covered: 9
+
+### Admin class & workout viewer:
+![Admin class viewer image](docs\features\admin_class_view.png)
+![Admin class viewer image](docs\features\admin_workout_view.png)
+* Provides the administrator with information on classes/workouts.
+* Easy to use date picker.
+
+#### User stories covered: 11
+
+### Admin user viewer:
+![Admin user viewer image](docs\features\admin_user_view.png)
+* Provides the administrator with information on selected user.
+* Gives all user information and provides option to edit.
+
+#### User stories covered: 12
 
 ## Design:
 

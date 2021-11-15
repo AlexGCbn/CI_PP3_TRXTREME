@@ -66,11 +66,13 @@ def display_user_data(user_class):
     """
     if user_class.athlete_type == "workout":
         print(
+            "\n"
             f"Hello {user_class.first_name} {user_class.last_name}! "
             f"Your remaining workouts are {user_class.workouts_left}"
         )
     elif user_class.athlete_type == "martial arts":
         print(
+            "\n"
             f"Hello {user_class.first_name} {user_class.last_name}! "
             f"Your group is {user_class.athlete_group}"
         )

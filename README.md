@@ -200,23 +200,22 @@ R0903: too-few-public-methods -> Again same issue. Our classes were used for dat
 ![user_data.py file Pylint validation](docs/validation/pylint_user_data.png)
 </details>
 
-### Device and browser testing
-
-The website was tested on the following devices:
-* Windows desktop PC (various components) running Windows 10
-  * Chrome Version 92.0.4515.159
-  * Edge Version 92.0.902.78
-* iPhone 12 Pro
-  * Safari 
-* Various devices from users who tested for feedback
-
-The webpage works great on all devices and browsers that it was tested on.  
-Functionality between desktop and mobile remains the same, with the look of the page changing slightly.  
-As the website was designed mobile-first, it fits mobile browsers perfectly while also changing to fit a larger screen and occupy more space.
-
 ### User stories testing:
 
-1. USER STORY
+1. Be able to sign up.
+
+| **Feature** | **Action** | **Expected Result** | **Actual Result** |
+|-------------|------------|---------------------|-------------------|
+| Sign up | In main menu, press 2. Sign up | Get sign up menu | Works as expected |
+| Sign up | After getting sign up menu, input data | Be informed if data is incorrect | Works as expected |
+
+<details><summary>Screenshots</summary>
+
+![IMAGE DESCRIPTION](FEATURE IMAGE)
+
+</details>
+
+2. Be able to see my data after signing up.
 
 | **Feature** | **Action** | **Expected Result** | **Actual Result** |
 |-------------|------------|---------------------|-------------------|
@@ -227,6 +226,139 @@ As the website was designed mobile-first, it fits mobile browsers perfectly whil
 ![IMAGE DESCRIPTION](FEATURE IMAGE)
 
 </details>
+
+3. Have the option to sign up for the appropriate martial arts level.
+
+| **Feature** | **Action** | **Expected Result** | **Actual Result** |
+|-------------|------------|---------------------|-------------------|
+| FEATURE | ACTION | EXPECTED RESULT | Works as expected |
+
+<details><summary>Screenshots</summary>
+
+![IMAGE DESCRIPTION](FEATURE IMAGE)
+
+</details>
+
+4. Find the menu options easily.
+
+| **Feature** | **Action** | **Expected Result** | **Actual Result** |
+|-------------|------------|---------------------|-------------------|
+| FEATURE | ACTION | EXPECTED RESULT | Works as expected |
+
+<details><summary>Screenshots</summary>
+
+![IMAGE DESCRIPTION](FEATURE IMAGE)
+
+</details>
+
+5. Have easy sign in option.
+
+| **Feature** | **Action** | **Expected Result** | **Actual Result** |
+|-------------|------------|---------------------|-------------------|
+| FEATURE | ACTION | EXPECTED RESULT | Works as expected |
+
+<details><summary>Screenshots</summary>
+
+![IMAGE DESCRIPTION](FEATURE IMAGE)
+
+</details>
+
+6. See my next martial arts class.
+
+| **Feature** | **Action** | **Expected Result** | **Actual Result** |
+|-------------|------------|---------------------|-------------------|
+| FEATURE | ACTION | EXPECTED RESULT | Works as expected |
+
+<details><summary>Screenshots</summary>
+
+![IMAGE DESCRIPTION](FEATURE IMAGE)
+
+</details>
+
+7. Have easy sign in option.
+
+| **Feature** | **Action** | **Expected Result** | **Actual Result** |
+|-------------|------------|---------------------|-------------------|
+| FEATURE | ACTION | EXPECTED RESULT | Works as expected |
+
+<details><summary>Screenshots</summary>
+
+![IMAGE DESCRIPTION](FEATURE IMAGE)
+
+</details>
+
+8. Be able to sign in for the workout I want.
+
+| **Feature** | **Action** | **Expected Result** | **Actual Result** |
+|-------------|------------|---------------------|-------------------|
+| FEATURE | ACTION | EXPECTED RESULT | Works as expected |
+
+<details><summary>Screenshots</summary>
+
+![IMAGE DESCRIPTION](FEATURE IMAGE)
+
+</details>
+
+9. See how many workouts I have left. 
+
+| **Feature** | **Action** | **Expected Result** | **Actual Result** |
+|-------------|------------|---------------------|-------------------|
+| FEATURE | ACTION | EXPECTED RESULT | Works as expected |
+
+<details><summary>Screenshots</summary>
+
+![IMAGE DESCRIPTION](FEATURE IMAGE)
+
+</details>
+
+10. Not be able to register for the same workout twice.
+
+| **Feature** | **Action** | **Expected Result** | **Actual Result** |
+|-------------|------------|---------------------|-------------------|
+| FEATURE | ACTION | EXPECTED RESULT | Works as expected |
+
+<details><summary>Screenshots</summary>
+
+![IMAGE DESCRIPTION](FEATURE IMAGE)
+
+</details>
+
+11. Be able to see registered users for specific classes.
+
+| **Feature** | **Action** | **Expected Result** | **Actual Result** |
+|-------------|------------|---------------------|-------------------|
+| FEATURE | ACTION | EXPECTED RESULT | Works as expected |
+
+<details><summary>Screenshots</summary>
+
+![IMAGE DESCRIPTION](FEATURE IMAGE)
+
+</details>
+
+12. Have the option to view user data.
+
+| **Feature** | **Action** | **Expected Result** | **Actual Result** |
+|-------------|------------|---------------------|-------------------|
+| FEATURE | ACTION | EXPECTED RESULT | Works as expected |
+
+<details><summary>Screenshots</summary>
+
+![IMAGE DESCRIPTION](FEATURE IMAGE)
+
+</details>
+
+13. Have the option to edit user data.
+
+| **Feature** | **Action** | **Expected Result** | **Actual Result** |
+|-------------|------------|---------------------|-------------------|
+| FEATURE | ACTION | EXPECTED RESULT | Works as expected |
+
+<details><summary>Screenshots</summary>
+
+![IMAGE DESCRIPTION](FEATURE IMAGE)
+
+</details>
+
 
 ## Bugs
 

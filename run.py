@@ -306,9 +306,10 @@ def sign_up():
                 " Please use a different username or type"
                 " 'exit' to go to main menu."
             )
-        elif len(username) < 4:
+        elif len(username) < 4 or len(username) > 15:
             print(
-                "Username cannot be less than 4 characters. Please try again."
+                "Username should be between 4 and 15 characters. "
+                "Please try again."
             )
         else:
             break
@@ -322,9 +323,10 @@ def sign_up():
                 "Email already in use. Please try again or "
                 "type 'exit' to go to main menu."
             )
-        elif len(email) < 10:
+        elif len(email) < 10 or len(email) > 50:
             print(
-                "Email cannot be less than 10 characters. Please try again."
+                "Email should be between 10 and 50 characters. "
+                "Please try again."
             )
         else:
             break

@@ -28,7 +28,9 @@ def successful_sign_in(user_class):
     """
     choice = ""
     if user_class.athlete_type == "workout":
-        print(f"Welcome {user_class.first_name}! Please choose an option:")
+        print("\n"
+            f"Welcome {user_class.first_name}! Please choose an option:"
+            )
         print("1. Sign up for workout")
         print("2. View remaining workouts")
         print("3. Exit to main menu")

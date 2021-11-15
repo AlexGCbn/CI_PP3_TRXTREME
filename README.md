@@ -162,11 +162,18 @@ The system's structure was designed as a flowchart first. To design the flowchar
 ## Testing:
 ### Validation
 <details>
-<summary> HTML </summary>
-The W3C Markup Validation Service was used to validate HTML code. All pages passed with no errors or warnings to show.
+<summary> PEP8 </summary>
+The PEP8 online requirements validator was used as the main validator for this project.
+No errors were left after cleaning up the code.
 
-### Home:
-![Home page html validation](docs/images/home-html-valid.png)
+### run.py:
+![run.py file PEP8 validation](docs/validation/pep8_run.png)
+### gservices.py:
+![gservices.py file PEP8 validation](docs/validation/pep8_gservices.png)
+### user.py:
+![user.py file PEP8 validation](docs/validation/pep8_user.png)
+### user_data.py:
+![user_data.py file PEP8 validation](docs/validation/pep8_user_data.png)
 
 </details>
 <details>
@@ -182,24 +189,6 @@ If we perform the code validation, we can see that there are no errors or warnin
 ![CSS code validation result image](docs/images/code-css-valid.png)
 </details>
 <details>
-<summary> Performance </summary>
-Website performance was tested with Google Developer Tools Lighthouse.   
-All pages passed the tests with near perfect results.
-
-### Home:
-![Home page performance validation](docs/images/home-lh-valid.png)
-
-</details>
-
-<details>
-<summary> Accessibility </summary>
-Website accessibility was tested with the WAVE Web Accessibility Evaluation Tool.  
-All pages passed with no errors. 
-
-### Home:
-![Home page accessibility validation](docs/images/home-wave-valid.png)
-
-</details>
 
 ### Device and browser testing
 

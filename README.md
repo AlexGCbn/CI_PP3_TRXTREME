@@ -33,28 +33,38 @@ It offers options for first time users, signed up users and administrators.
 ## User Stories:
 
 ### As a first time user, I want to:
+1. Be able to sign up.
+2. Be able to see my data after signing up.
+3. Have the option to sign up for the appropriate martial arts level.
 
+### As a recurring martial arts user, I want to:
+4. See my next martial arts class.
 
-### As a recurring user, I want to:
+### As a recurring workouts user, I want to:
+5. See how many workouts I have left. 
+6. Not be able to register for the same workout twice.
 
-
-### As the website owner, I want to:
+### As the administrator, I want to:
+7. Be able to see registered users for specific classes.
+8. Have the option to view user data.
+9. Have the option to edit user data.
 
 
 ## Goals:
 ### Development goals:
-
+* Have an efficient way to store data and use it.
+* Use both Google Calendar and Sheet to have better structure.
+* Provide easy navigation that can escape back to main menu.
 
 ### Target audience goals:
-
+* Provide an intuitive menu.
+* Have easy to understand options.
+* Provide options for both administrators and users.
 
 ## Features:
 
-### Pages:
-
-
-### Navbar:
-![FEATURE](LINK)
+### Main menu:
+![Main menu image](LINK)
 * INFO
 
 #### User stories covered: 

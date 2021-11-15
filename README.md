@@ -1,9 +1,15 @@
 # TRXtreme Booking System
 In order to view the live site, click [here](https://trxtreme.herokuapp.com/).
 
+If you want to view the Google Calendar, click [here](https://calendar.google.com/calendar/u/0?cid=dHJ4dHJlbWUyMDIxQGdtYWlsLmNvbQ). To view, you have to add the calendar to your Google account. You can remove it anytime you wish after that.
+
+If you want to view the Google Sheet used for data storage, click [here](https://docs.google.com/spreadsheets/d/1izyPTgGIt_uKegNn2I0lFUdrAuXPJisNeXgvzN2EG_g/edit?usp=sharing).
+
 ![Website mockup](docs/amiresponsive/amiresponsive.png)
 
-TRXtreme is a booking system for a martial arts school that also offers 
+TRXtreme is a booking system for a martial arts school that also offers TRX and Cross Training workouts. 
+The system was built based on a real place and the way it works, coupled with many personal preferences/improvements. 
+It offers options for first time users, signed up users and administrators.
 
 ## Table of contents:
 

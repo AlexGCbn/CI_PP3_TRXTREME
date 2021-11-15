@@ -105,6 +105,15 @@ It offers options for first time users, signed up users and administrators.
 
 #### User stories covered: 9
 
+### Sign up:
+![Sign up image 1](docs\features\sign_up_1.png)
+![Sign up image 1](docs\features\sign_up_2.png)
+* Provides the user with the sign up menu.
+* Verifies if username or email already exist in database.
+* Validates data based on length.
+
+#### User stories covered: 1
+
 ### Admin class & workout viewer:
 ![Admin class viewer image](docs\features\admin_class_view.png)
 ![Admin class viewer image](docs\features\admin_workout_view.png)

@@ -36,18 +36,21 @@ It offers options for first time users, signed up users and administrators.
 1. Be able to sign up.
 2. Be able to see my data after signing up.
 3. Have the option to sign up for the appropriate martial arts level.
+4. Find the menu options easily.
 
 ### As a recurring martial arts user, I want to:
-4. See my next martial arts class.
+5. Have easy sign in option.
+6. See my next martial arts class.
 
 ### As a recurring workouts user, I want to:
-5. See how many workouts I have left. 
-6. Not be able to register for the same workout twice.
+7. Have easy sign in option.
+8. See how many workouts I have left. 
+9. Not be able to register for the same workout twice.
 
 ### As the administrator, I want to:
-7. Be able to see registered users for specific classes.
-8. Have the option to view user data.
-9. Have the option to edit user data.
+10. Be able to see registered users for specific classes.
+11. Have the option to view user data.
+12. Have the option to edit user data.
 
 
 ## Goals:
@@ -64,10 +67,27 @@ It offers options for first time users, signed up users and administrators.
 ## Features:
 
 ### Main menu:
-![Main menu image](LINK)
-* INFO
+![Main menu image](docs/features/main_menu.png)
+* Provides welcome message. 
+* Gives users and administrators the options.
 
-#### User stories covered: 
+#### User stories covered: 4
+
+### User sign in:
+![User sign in image](docs/features/user_sign_in.png)
+* Asks users for their username and email.
+* Informs them if the username or email is incorrect.
+* Provides escape option.
+
+#### User stories covered: 5, 7
+
+### Workout user options menu:
+![Workout user options menu image](docs\features\workout_sign_up.png)
+* Asks users for their username and email.
+* Informs them if the username or email is incorrect.
+* Provides escape option.
+
+#### User stories covered: 5, 7
 
 ## Design:
 

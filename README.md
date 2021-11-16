@@ -385,7 +385,15 @@ To deploy on Heroku, the following steps were performed:
 Done!
 
 For the Google APIs, one must do the following to get set:
-1. Sign in or create an account for the [Google Cloud Platform](https://console.cloud.google.com/)
+1. Sign in or create an account for the [Google Cloud Platform](https://console.cloud.google.com/).
+2. Click the "New Project" button and complete the details.
+3. Hover over "APIs and services" and click on "Library".
+4. Search for the Google Drive and enable it. Do the same for Google Sheets and Google Calendar.
+5. Click on "APIs and services" and then on "Credentials".
+6. Click "Manage service accounts" and then "Create service account".
+7. Add a name for the account and a description if desired, then press "Create and continue".
+8. Under "Role" choose "Editor", continue and then "Done".
+9. Keep in mind that you need to change details in the gservices.py file.
 
 ## Credits:
 

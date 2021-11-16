@@ -15,15 +15,16 @@ It offers options for first time users, signed up users and administrators.
 
 1. [User Stories](#user-stories)
 2. [Goals](#goals)
-3. [Features](#features)
-4. [Structure](#structure)
-5. [Technologies used](#technologies-used)
-6. [Testing](#testing)
+3. [User Manual](#user-manual)
+4. [Features](#features)
+5. [Structure](#structure)
+6. [Technologies used](#technologies-used)
+7. [Testing](#testing)
     1. [Validation](#validation)
     3. [User stories testing](#user-stories-testing)
-7. [Bugs](#bugs)
-8. [Deployment](#deployment)
-9. [Credits](#credits)
+8. [Bugs](#bugs)
+9. [Deployment](#deployment)
+10. [Credits](#credits)
 
 ## User Stories:
 
@@ -81,9 +82,9 @@ Before reading the instructions, some important notes need to be made.
 </details>
 
 This is the first screen you will see when running the app. Here, you have the options: 
-* [Sign in as user](#sign-in-as-user)
-* [Sign up as user](#sign-up-as-user)
-* [Sign in as admin](#sign-in-as-admin)
+* [Sign in as user](#2-sign-in-as-user)
+* [Sign up as user](#3-sign-up-as-user)
+* [Sign in as admin](#4-sign-in-as-admin)
 
 ### 2. Sign in as user
 <details><summary>Screenshot</summary>
@@ -95,7 +96,7 @@ Here you can sign in as a user with your username and email.
 After that, you either get told when  your next class is if you are a martial arts user, or get the following options if you are a workout user:
 1. [Sign up for workout](#sign-up-for-workout)
 2. [View workouts left](#view-workouts-left)
-3. [Exit to main menu](#1.-main-menu)
+3. [Exit to main menu](#1-main-menu)
 
 ### 3. Sign up as user
 <details><summary>Screenshot</summary>
@@ -126,7 +127,7 @@ The "admin credentials" are in the Google Sheet page "users" and are by default 
 The admin menu provides the following options:
 1. [View and edit users](#view-and-edit-users)
 2. [View workouts](#view-workouts)
-3. [Exit to main menu](#1.-main-menu)
+3. [Exit to main menu](#1-main-menu)
 
 ### 5. Sign up for workout
 <details><summary>Screenshot</summary>

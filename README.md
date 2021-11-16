@@ -303,11 +303,11 @@ R0903: too-few-public-methods -> Again same issue. Our classes were used for dat
 
 | **Feature** | **Action** | **Expected Result** | **Actual Result** |
 |-------------|------------|---------------------|-------------------|
-| FEATURE | ACTION | EXPECTED RESULT | Works as expected |
+| Workout sign up | Sign in as workout user, press 1, choose workout that user is already signed up for | User gets warning message, does not get registered twice | Works as expected |
 
 <details><summary>Screenshots</summary>
 
-![IMAGE DESCRIPTION](FEATURE IMAGE)
+![Same workout sign up warning image](docs/validation_testing/11_same_workout.png)
 
 </details>
 
@@ -315,11 +315,15 @@ R0903: too-few-public-methods -> Again same issue. Our classes were used for dat
 
 | **Feature** | **Action** | **Expected Result** | **Actual Result** |
 |-------------|------------|---------------------|-------------------|
-| FEATURE | ACTION | EXPECTED RESULT | Works as expected |
+| Admin class & workout viewer | Sign in as admin, press 1, input user's username | View user's data | Works as expected |
 
 <details><summary>Screenshots</summary>
 
-![IMAGE DESCRIPTION](FEATURE IMAGE)
+![Admin class & workout viewer image](docs/validation_testing/15_admin_workout_view.png)
+![Users sheet image](docs/validation_testing/17_workout_sheet.png)
+![Admin class & workout viewer image](docs/validation_testing/16_admin_class_view.png)
+![Users sheet image](docs/validation_testing/18_teenage_ma.png)
+
 
 </details>
 
@@ -327,11 +331,11 @@ R0903: too-few-public-methods -> Again same issue. Our classes were used for dat
 
 | **Feature** | **Action** | **Expected Result** | **Actual Result** |
 |-------------|------------|---------------------|-------------------|
-| FEATURE | ACTION | EXPECTED RESULT | Works as expected |
+| Admin user view | Sign in as admin, press 2, input date, pick workout/class | View workout/class users | Works as expected |
 
 <details><summary>Screenshots</summary>
 
-![IMAGE DESCRIPTION](FEATURE IMAGE)
+![Admin user view image](docs/validation_testing/12_admin_user_view.png)
 
 </details>
 
@@ -339,11 +343,12 @@ R0903: too-few-public-methods -> Again same issue. Our classes were used for dat
 
 | **Feature** | **Action** | **Expected Result** | **Actual Result** |
 |-------------|------------|---------------------|-------------------|
-| FEATURE | ACTION | EXPECTED RESULT | Works as expected |
+| Admin user edit | Sign in as admin, press 1, input user's username then press 1 again | Pick user data and change it | Works as expected |
 
 <details><summary>Screenshots</summary>
 
-![IMAGE DESCRIPTION](FEATURE IMAGE)
+![Admin user edit menu and result image](docs/validation_testing/13_admin_user_edit.png)
+![Google sheet after admin user edit image](docs/validation_testing/14_admin_user_edit_sheet.png)
 
 </details>
 

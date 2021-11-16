@@ -97,7 +97,7 @@ After that, you either get told when  your next class is if you are a martial ar
 2. View workouts left
 3. Return to main menu
 
-### 3. Sign up
+### 3. Sign up as user
 <details><summary>Screenshot</summary>
 
 ![Sign up image](docs/features/sign_up_1.png)
@@ -113,7 +113,7 @@ Then, you must choose if you are a workouts user or martial arts.
  * Workouts: You will not be asked anything else, you are ready! 
  * Martial arts: Pick your level to be assigned to class.
 
-### 4. Admin sign in
+### 4. Sign in as admin
 <details><summary>Screenshot</summary>
 
 ![Admin menu image](docs/features/admin_menu.png)
@@ -125,6 +125,44 @@ The admin menu provides the following options:
 1. View and edit users
 2. View workouts
 3. Return to main menu
+
+### 5. Sign up for workout
+<details><summary>Screenshot</summary>
+
+![Workout sign up image](docs/features/workout_sign_up.png)
+</details>
+
+In the workout sign up section, you can see the next workouts (TRX and Cross Training) and choose one that you want to sign up for.
+You then have to input "y" to confirm or "n" to cancel. Confirming will use one of your workouts left.
+
+### 6. View workouts left
+<details><summary>Screenshot</summary>
+
+![Workouts left image](docs/features/remaining_workouts.png)
+</details>
+
+If you press this button, the app will show you how many workouts you have left.
+Only the admin can add more!
+
+### 7. View and edit users
+<details><summary>Screenshot</summary>
+
+![Admin user view image](docs/features/admin_user_view.png)
+![Admin user edit image](docs/features/admin_user_edit.png)
+</details>
+
+Here the admin can view user data when searching by their username. After that, they can input 1 to edit the data.
+If they choose to edit, they can edit any piece of information the user has. The only exception is that they cannot alter the next workouts.
+
+### 8. View workouts
+<details><summary>Screenshot</summary>
+
+![Admin workouts view image](docs/features/admin_workouts_view.png)
+</details>
+
+Here the admin has to choose the year, month and day in the format of YYYY, MM and DD sequentially.
+After that they get a numbered list of all workouts on that day. 
+By then inputting the number of the workout they want to view, they get information about all the users that will attend.
 
 ## Features:
 

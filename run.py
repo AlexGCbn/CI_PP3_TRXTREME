@@ -10,7 +10,6 @@ Main file
 # https://learndataanalysis.org/add-new-worksheets-to-existing-google-sheets-file-with-google-sheets-api/
 
 import datetime
-import sys
 from pyasn1.type.univ import Null
 import gservices as gs
 import user
@@ -467,8 +466,6 @@ def get_events():
     index = 0
     events_list = []
 
-    if not events:
-        print("No upcoming events found.")
     for event in events:
         start = event["start"].get("dateTime", event["start"].get("date"))
         if date_no_time in start:
@@ -480,7 +477,10 @@ def get_events():
                 start.replace("T", " ").replace(":00+02:00", ""),
                 event["summary"],
             )
-    view_attendees(events_list)
+    if index != 0:
+        view_attendees(events_list)
+    else:
+        print("No upcoming events found.\n")
     admin_actions()
 
 
@@ -488,6 +488,8 @@ def admin_edit_user_menu(index, user_class):
     """
     Gets user index and the created object to
     provide change options and call next function.
+    @param: index int
+    @param: user_class object
     """
     print("What do you want to edit?")
     print("1. Username")
@@ -610,7 +612,6 @@ def welcome():
     print("1. Sign in (Already a user)")
     print("2. Sign up (Not a user)")
     print("3. Admin sign in")
-    print("4. Terminate program\n")
 
     user_answer = input("Enter choice:\n")
 

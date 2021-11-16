@@ -160,7 +160,7 @@ If they choose to edit, they can edit any piece of information the user has. The
 ### 8. View workouts
 <details><summary>Screenshot</summary>
 
-![Admin workouts view image](docs/features/admin_workouts_view.png)
+![Admin workouts view image](docs/features/admin_workout_view.png)
 </details>
 
 Here the admin has to choose the year, month and day in the format of YYYY, MM and DD sequentially.

@@ -6,10 +6,11 @@ import user
 import gservices as gs
 
 
-def update_workout(user_class):
+def update_workout(user_class: object):
     """
     Removes a user workout from their counter.
     Updates the row of the selected user to add the new value.
+    @param: user_class object
     """
     index = str(user.find_user_index(user_class.username, "username"))
     new_range = "users!A" + index
@@ -32,10 +33,11 @@ def update_workout(user_class):
     )
 
 
-def update_user_class(ind):
+def update_user_class(ind: int) -> object:
     """
     Uses the passed index number to find user on
     Google Sheet and create the user object.
+    @param: ind int
     """
     values = gs.SHEET.worksheet("users").row_values(ind)
     if values[4] == "workout":
@@ -49,10 +51,13 @@ def update_user_class(ind):
     return user_class
 
 
-def edit_item(index, user_class, item):
+def edit_item(index: int, user_class: object, item: str):
     """
     Gets user index, the created object and the item to change.
     Changes the item in the object so it can be returned to the GSheet.
+    @param: index int
+    @param: user_class object
+    @param: item str
     """
     new_range = "users!A" + str(index)
     new_value = input("Provide new value:\n")
@@ -97,10 +102,11 @@ def edit_item(index, user_class, item):
         print(f"{item_str} updated!\n")
 
 
-def count_athletes(level):
+def count_athletes(level: str) -> int:
     """
     Counts how many athletes are in specified level
     Returns the number
+    @param: level str
     """
     level_athletes = gs.SHEET.worksheet("users").col_values(7)
     level_count = 0

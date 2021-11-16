@@ -18,12 +18,13 @@ import user_data as ud
 # START OF USER ACTIONS
 
 
-def successful_sign_in(user_class):
+def successful_sign_in(user_class: object):
     """
     Uses user class to determine what choices to provide to user.
     For workout users, provides the option to sign up for a workout
     or see their information.
     For martial arts athletes, provides details and next workout directly.
+    @param: user_class object
     """
     choice = ""
     if user_class.athlete_type == "workout":
@@ -60,10 +61,11 @@ def successful_sign_in(user_class):
     welcome()
 
 
-def display_user_data(user_class):
+def display_user_data(user_class: object):
     """
     Provides information to user about their profile
     depending on their type.
+    @param: user_class object
     """
     if user_class.athlete_type == "workout":
         print(
@@ -103,13 +105,14 @@ def display_user_data(user_class):
             print(f"Your next training session is on: {start}")
 
 
-def workout_sign_up(user_class):
+def workout_sign_up(user_class: object):
     """
     Gets next 20 events.
     Filters events to find only workouts and then presents a list to user.
     When user picks an event, asks to confirm.
     If confirmed, calls the event attendees update function.
     Uses 'now' to get UTC+0 timestamp. Events are presented in GSheet time.
+    @param: user_class object
     """
     now = datetime.datetime.utcnow().isoformat() + "Z"
     print("Getting upcoming events")
@@ -166,11 +169,14 @@ def workout_sign_up(user_class):
         successful_sign_in(user_class)
 
 
-def update_event_attendees(event_id, operation, user_class):
+def update_event_attendees(event_id: str, operation: str, user_class: object):
     """
     Checks to see if there is a worksheet with the event ID as name.
     If not, creates one.
     If there is, adds username to worksheet.
+    @param: event_id str
+    @param: operation str
+    @param: user_class object
     """
     if operation == "sign_up":
         try:
@@ -229,11 +235,12 @@ def verify_username():
             print("Username incorrect!")
 
 
-def verify_email(user_class):
+def verify_email(user_class: object):
     """
     Takes the user object,
     asks the user for the email and verifies if it is correct.
     If so, it passes the user object to the next function.
+    @param: user_class object
     """
     while True:
         email = input(
@@ -252,11 +259,13 @@ def verify_email(user_class):
 # START OF SIGN UP
 
 
-def martial_sign_up(choice, new_user):
+def martial_sign_up(choice: str, new_user: list) -> list:
     """
     Gets the user's choice of martial arts class
     Checks if there is room for more athletes (<12)
     Returns the user instance with appropriate data
+    @param: choice str
+    @param: new_user list
     """
     level_count = 0
     if choice == "1":
@@ -379,9 +388,10 @@ def sign_up():
 # START OF ADMIN ACTIONS
 
 
-def view_attendees(events_list):
+def view_attendees(events_list: list):
     """
     Provides option to choose an event to view the attendees
+    @param: events_list list
     """
     choice = input(
         "Please input the number of the workout you "
@@ -484,7 +494,7 @@ def get_events():
     admin_actions()
 
 
-def admin_edit_user_menu(index, user_class):
+def admin_edit_user_menu(index: int, user_class: object):
     """
     Gets user index and the created object to
     provide change options and call next function.

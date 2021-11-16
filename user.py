@@ -46,12 +46,14 @@ class MartialArtsUser(User):
         self.athlete_group = athlete_group
 
 
-def find_user_index(data_value, type_value):
+def find_user_index(data_value: str, type_value: str) -> int:
     """
     Function to check if username or email exists.
     It was created as it needs to be called multiple times.
     It gets the data_value and the type_value, looks for the data_value in the
     appropriate column depending on type_value and returns an index number.
+    @param: data_value str
+    @param: type_value str
     """
     index = 0
     if type_value == "username":

@@ -43,7 +43,7 @@ It offers options for first time users, signed up users and administrators.
 
 ### As a recurring workouts user, I want to:
 6. Have easy sign in option.
-7. Be able to sign in for the workout I want.
+7. Be able to sign up for the workout I want.
 8. See how many workouts I have left. 
 9. Not be able to register for the same workout twice.
 
@@ -243,11 +243,11 @@ R0903: too-few-public-methods -> Again same issue. Our classes were used for dat
 
 | **Feature** | **Action** | **Expected Result** | **Actual Result** |
 |-------------|------------|---------------------|-------------------|
-| FEATURE | ACTION | EXPECTED RESULT | Works as expected |
+| Sign in | Press 1 on main menu and input username and email | Successfully sign in | Works as expected |
 
 <details><summary>Screenshots</summary>
 
-![IMAGE DESCRIPTION](FEATURE IMAGE)
+![Signed in image](docs/validation_testing/7_sign_in.png)
 
 </details>
 
@@ -255,11 +255,11 @@ R0903: too-few-public-methods -> Again same issue. Our classes were used for dat
 
 | **Feature** | **Action** | **Expected Result** | **Actual Result** |
 |-------------|------------|---------------------|-------------------|
-| FEATURE | ACTION | EXPECTED RESULT | Works as expected |
+| Martial arts user sign in | Sign in as martial arts user | See next workout | Works as expected |
 
 <details><summary>Screenshots</summary>
 
-![IMAGE DESCRIPTION](FEATURE IMAGE)
+![Martial arts user signed in image](docs/validation_testing/8_ma_info.png)
 
 </details>
 
@@ -267,23 +267,23 @@ R0903: too-few-public-methods -> Again same issue. Our classes were used for dat
 
 | **Feature** | **Action** | **Expected Result** | **Actual Result** |
 |-------------|------------|---------------------|-------------------|
-| FEATURE | ACTION | EXPECTED RESULT | Works as expected |
+| Sign in | Press 1 on main menu and input username and email | Successfully sign in | Works as expected |
 
 <details><summary>Screenshots</summary>
 
-![IMAGE DESCRIPTION](FEATURE IMAGE)
+![Signed in image](docs/validation_testing/7_sign_in.png)
 
 </details>
 
-7. Be able to sign in for the workout I want.
+7. Be able to sign up for the workout I want.
 
 | **Feature** | **Action** | **Expected Result** | **Actual Result** |
 |-------------|------------|---------------------|-------------------|
-| FEATURE | ACTION | EXPECTED RESULT | Works as expected |
+| Workout sign up | Sign in as workout user, press 1, choose workout | User signed up for workout | Works as expected |
 
 <details><summary>Screenshots</summary>
 
-![IMAGE DESCRIPTION](FEATURE IMAGE)
+![Workouts sign up image](docs/validation_testing/9_workout_sign_up.png)
 
 </details>
 
@@ -291,11 +291,11 @@ R0903: too-few-public-methods -> Again same issue. Our classes were used for dat
 
 | **Feature** | **Action** | **Expected Result** | **Actual Result** |
 |-------------|------------|---------------------|-------------------|
-| FEATURE | ACTION | EXPECTED RESULT | Works as expected |
+| Remaining workouts | Sign in as workout user, press 2 | See how many workouts user has left | Works as expected |
 
 <details><summary>Screenshots</summary>
 
-![IMAGE DESCRIPTION](FEATURE IMAGE)
+![Workouts remaining information image](docs/validation_testing/10_workouts_remaining.png)
 
 </details>
 

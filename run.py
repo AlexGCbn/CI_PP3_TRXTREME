@@ -5,12 +5,10 @@ Main file
 # The following section has all the imports that the app requires to work.
 # datetime -> Date and time functions
 # gservices -> gservices module, containing all Google services code
-# Null -> used for null events
 # REF#1:
 # https://learndataanalysis.org/add-new-worksheets-to-existing-google-sheets-file-with-google-sheets-api/
 
 import datetime
-from pyasn1.type.univ import Null
 import gservices as gs
 import user
 import user_data as ud
@@ -182,8 +180,8 @@ def update_event_attendees(event_id: str, operation: str, user_class: object):
         try:
             sheet_check = gs.SHEET.worksheet(event_id)
         except:
-            sheet_check = Null
-        if sheet_check == Null:
+            sheet_check = None
+        if sheet_check == None:
             # Credits: start of code, REF#1
             new_sheet = {
                 "requests": [{"addSheet": {"properties": {"title": event_id}}}]
@@ -413,12 +411,12 @@ def view_attendees(events_list: list):
         try:
             sheet_check = gs.SHEET.worksheet(event_id)
         except:
-            sheet_check = Null
+            sheet_check = None
         if (
             "TRX" in chosen_workout["summary"] or
             "Cross Training" in chosen_workout["summary"]
         ):
-            if sheet_check == Null:
+            if sheet_check == None:
                 print("There are no registered users for this class.\n")
             else:
                 print("The following users are registered:")

@@ -261,6 +261,21 @@ The system's structure was designed as a flowchart first. To design the flowchar
 * Google Calendar API
 * Lucidchart
 
+### Data Modeling
+This project uses some data models more than others.  \
+Google Sheets are used to store user data in the "users" sheet. The rest of the sheets are unique for each event, named after the event ID.  \
+Google Calendar is only used to read from, so we can have the schedule for each day. No manipulation is done, as OAuth is needed for that.  \
+  \
+I have tried keeping it as simple as possible, so here are the main points:
+* A main user class (user.User) and its subclasses (user.WorkoutUser and user.MartialArtsUser) are used to create an object and pass it around our functions. The object is usually called user_class. It is used to take the information from our Google Sheets "user" sheet and store it for easy access. We can change any attributes we want and then use the object to return the new data.
+* Many lists have been used to store data throughout the project, like events_list. They are mainly used to store a list of events, or a list of attendees. The manipulation is done either through appending more data to create a complete list, or taking data through the API (like a whole Google Sheets column) and storing it.
+* event_id has been used a lot, as it is a unique identifier for each event. It is used to store event data, like when a user signs up for a workout. If a sheet with the event ID name exists, it adds the user. If not, a new one is created with the event ID name and the user is added.
+* Counters have been used throughout the project, mainly named "index" or "counter". They are necessary as we have to iterate through lists (rows and columns) and need to know where the data is located. Google Sheets works with numbers for indices, so we need to count them.
+
+### 3rd party libraries
+* googleapiclient.discovery - Necessary to import build so we can create the resource to communicate with Google Calendar. For more information, you can read the documentation [here](https://googleapis.github.io/google-api-python-client/docs/epy/googleapiclient.discovery-module.html#build).
+* google.oauth2.service_account - Module used to implement OAuth to our project. Even though we don't use authentication for this project, it is necessary to connect our Service Account with the Credentials function. Read more about it [here](https://google-auth.readthedocs.io/en/master/reference/google.oauth2.service_account.html).
+
 ## Testing:
 ### Validation
 <details>

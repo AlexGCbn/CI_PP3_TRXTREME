@@ -81,9 +81,9 @@ Before reading the instructions, some important notes need to be made.
 </details>
 
 This is the first screen you will see when running the app. Here, you have the options: 
-* Sign in as user 
-* Sign up as user
-* Sign in as admin
+* [Sign in as user](#sign-in-as-user)
+* [Sign up as user](#sign-up-as-user)
+* [Sign in as admin](#sign-in-as-admin)
 
 ### 2. Sign in as user
 <details><summary>Screenshot</summary>
@@ -93,9 +93,9 @@ This is the first screen you will see when running the app. Here, you have the o
 
 Here you can sign in as a user with your username and email.
 After that, you either get told when  your next class is if you are a martial arts user, or get the following options if you are a workout user:
-1. Sign up for workout
-2. View workouts left
-3. Return to main menu
+1. [Sign up for workout](#sign-up-for-workout)
+2. [View workouts left](#view-workouts-left)
+3. [Exit to main menu](#1.-main-menu)
 
 ### 3. Sign up as user
 <details><summary>Screenshot</summary>
@@ -113,6 +113,8 @@ Then, you must choose if you are a workouts user or martial arts.
  * Workouts: You will not be asked anything else, you are ready! 
  * Martial arts: Pick your level to be assigned to class.
 
+If you input "exit" during the username or email prompts, you will be returned to the main menu.
+
 ### 4. Sign in as admin
 <details><summary>Screenshot</summary>
 
@@ -122,9 +124,9 @@ Then, you must choose if you are a workouts user or martial arts.
 The "admin credentials" are in the Google Sheet page "users" and are by default "admin" and "password". They can only be changed there.
 
 The admin menu provides the following options:
-1. View and edit users
-2. View workouts
-3. Return to main menu
+1. [View and edit users](#view-and-edit-users)
+2. [View workouts](#view-workouts)
+3. [Exit to main menu](#1.-main-menu)
 
 ### 5. Sign up for workout
 <details><summary>Screenshot</summary>

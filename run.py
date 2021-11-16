@@ -620,8 +620,6 @@ def welcome():
         sign_up()
     elif user_answer == "3":
         admin_sign_in()
-    elif user_answer == "4" or user_answer.lower() == "exit":
-        sys.exit()
     else:
         print(
             f"{user_answer} is not an acceptable key. Please try again.\n"

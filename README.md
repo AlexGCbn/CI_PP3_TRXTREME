@@ -284,17 +284,17 @@ Pylint was used as a secondary linter/validator.
 There are some errors, which have an explanation as to why they were left unchanged.
 
 ### run.py:
-![run.py file Pylint validation](docs/validation/pylint_run.png)
-E1101: no-member -> The "events" member is used only for Google API operations and it is written to function correctly.
-W0702: bare-except -> The try/except blocks were used to catch any type of error, to see if the selected event does not exist.
-R1723: no-else-break -> There is an else after break, as the break is to stop our infinite loop.
-R0912: too-many-branches -> Tried to reduce branches, yet they are necessary for the operation.
+![run.py file Pylint validation](docs/validation/pylint_run.png)\
+E1101: no-member -> The "events" member is used only for Google API operations and it is written to function correctly.  \
+W0702: bare-except -> The try/except blocks were used to catch any type of error, to see if the selected event does not exist.  \
+R1723: no-else-break -> There is an else after break, as the break is to stop our infinite loop.  \
+R0912: too-many-branches -> Tried to reduce branches, yet they are necessary for the operation.  \
 ### gservices.py:
 ![gservices.py file Pylint validation](docs/validation/pylint_gservices.png)
 ### user.py:
-![user.py file Pylint validation](docs/validation/pylint_user.png)
-R0913: too-many-arguments -> As our classes were used for easy data manipulation, they have more arguments than usual.
-R0903: too-few-public-methods -> Again same issue. Our classes were used for data manipulation, so they did not need any methods.
+![user.py file Pylint validation](docs/validation/pylint_user.png)\
+R0913: too-many-arguments -> As our classes were used for easy data manipulation, they have more arguments than usual.  \
+R0903: too-few-public-methods -> Again same issue. Our classes were used for data manipulation, so they did not need any methods.  \
 ### user_data.py:
 ![user_data.py file Pylint validation](docs/validation/pylint_user_data.png)
 </details>

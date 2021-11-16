@@ -505,4 +505,4 @@ For the Google APIs, one must do the following to get set:
 
 ## Credits:
 
-* ADD CREDITS HERE
+Special thanks to my mentor Mo Shami. His insight is always appreciated and he has been very supportive and encouraging!

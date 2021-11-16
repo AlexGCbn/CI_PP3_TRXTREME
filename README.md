@@ -59,6 +59,73 @@ It offers options for first time users, signed up users and administrators.
 * Have easy to understand options.
 * Provide options for both administrators and users.
 
+## User manual:
+
+Before reading the instructions, some important notes need to be made.
+
+* Users have 2 categories. Workout and Martial Arts.
+
+    * Workout users go to either TRX or Cross Training.
+    * They have a set amount of workouts per month that they can attend to. That amount is controlled by the trainer.
+    * When they sign up, they have 0 workouts remaining, as the trainer(admin) has to add them.
+    * They have to sign up for a workout each time they want to visit. 
+<br/></br>
+    * Martial arts users take classes in martial arts.
+    * They are in a class according to their level.
+    * They do not pick their trainings. They have classes whenever their level is on schedule.
+
+### 1. Main Menu
+<details><summary>Screenshot</summary>
+
+![Main menu image](docs/features/main_menu.png)
+</details>
+
+This is the first screen you will see when running the app. Here, you have the options: 
+* Sign in as user 
+* Sign up as user
+* Sign in as admin
+
+### 2. Sign in as user
+<details><summary>Screenshot</summary>
+
+![Sign in image](docs/features/user_sign_in.png)
+</details>
+
+Here you can sign in as a user with your username and email.
+After that, you either get told when  your next class is if you are a martial arts user, or get the following options if you are a workout user:
+1. Sign up for workout
+2. View workouts left
+3. Return to main menu
+
+### 3. Sign up
+<details><summary>Screenshot</summary>
+
+![Sign up image](docs/features/sign_up_1.png)
+![Sign up image](docs/features/sign_up_2.png)
+</details>
+
+Here you can sign up to create a user account. You will be asked to provide the following details:
+ * Username: Between 4-15 characters. Must not exist in database.
+ * Email: Between 10-50 characters. Must not exist in database.
+ * First name: Between 2-30 characters.
+ * Last name: Between 2-30 characters.
+Then, you must choose if you are a workouts user or martial arts. 
+ * Workouts: You will not be asked anything else, you are ready! 
+ * Martial arts: Pick your level to be assigned to class.
+
+### 4. Admin sign in
+<details><summary>Screenshot</summary>
+
+![Admin menu image](docs/features/admin_menu.png)
+</details>
+
+The "admin credentials" are in the Google Sheet page "users" and are by default "admin" and "password". They can only be changed there.
+
+The admin menu provides the following options:
+1. View and edit users
+2. View workouts
+3. Return to main menu
+
 ## Features:
 
 ### Main menu:

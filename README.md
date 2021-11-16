@@ -16,15 +16,10 @@ It offers options for first time users, signed up users and administrators.
 1. [User Stories](#user-stories)
 2. [Goals](#goals)
 3. [Features](#features)
-4. [Design](#design)
-    1. [Colours](#colours)
-    2. [Fonts](#fonts)
-    3. [Structure](#structure)
-    4. [Wireframes](#wireframes)
+4. [Structure](#structure)
 5. [Technologies used](#technologies-used)
 6. [Testing](#testing)
     1. [Validation](#validation)
-    2. [Device and browser testing](#device-and-browser-testing)
     3. [User stories testing](#user-stories-testing)
 7. [Bugs](#bugs)
 8. [Deployment](#deployment)
@@ -355,16 +350,42 @@ R0903: too-few-public-methods -> Again same issue. Our classes were used for dat
 
 ## Bugs
 
-1. BUG DESCRIPTION
-   * BUG FIX DESCRIPTION
+1. Datetime provided to get events list from Google Calendar not accepted.
+   * Change timezone letter from "B" which is the local one to "Z" which is UTC+0.
+2. Infinite loops would continue running after calling other functions.
+   * Add "break" after function calling event.
+3. When checking to see if a sheet for the selected events exists, we would get an error if it does not exist, instead of getting "Null".
+   * Add try/except for error catching, where except will set the checking variable to "Null" to be used as condition.
+4. Trying to add attendees to Google Calendar gave authentication errors.
+   * Changed strategy. Instead of adding attendees to Google Calendar, data is stored in Sheets, where each event that is used has a sheet with the event ID as name, thus it is unique.
+5. pip3 freeze did not provide necessary requirements
+   * Installed google services again with "--user" command, then the freeze command worked as intended.
+
 
 ## Deployment:
-* The site was deployed to GitHub pages. The steps to deploy are as follows: 
-  * In the GitHub repository, navigate to the Settings tab 
-  * From the source section drop-down menu, select the Master Branch
-  * Once the master branch has been selected, the page will be automatically refreshed with a detailed ribbon display to indicate the successful deployment. 
+The website was deployed with [Heroku](https://www.heroku.com/). 
 
-The live link can be found here - LINK
+Before deploying to Heroku, you can fork the repository by following these steps:
+1. Go to the GitHub repository (Where you are now)
+2. Click on the Fork button in the top right corner of the page
+
+To deploy on Heroku, the following steps were performed:
+1. When the project was completed, I used the command "pip3 freeze > requirements.txt" to add all requirements to said file.
+2. Visit Heroku page and either sign in or sign up.
+3. Click "New" on the top-right and click "Create new app".
+4. Add app name and choose region, then click "Create app".
+5. Go to "Settings" tab of project and click "Reveal Config Vars" in Config Vars.
+6. For the first one, type "CREDS" for name and for value use the credentials for your Google API service account. (Detailed below)
+7. For the second one, type "PORT" and for value type "8000".
+8. Click "Add buildpack" below the Config Vars section.
+9. Choose "python", press "Save changes" then do the same for "node.js".
+10. Make sure python is above node.js!
+11. Go to "Deploy" section.
+12. Make sure the "main" or "master" branch is selected and click "Enable automatic deploys"
+Done!
+
+For the Google APIs, one must do the following to get set:
+1. Sign in or create an account for the [Google Cloud Platform](https://console.cloud.google.com/)
 
 ## Credits:
 

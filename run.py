@@ -1,6 +1,4 @@
-"""
-Main file
-"""
+"""Main file"""
 
 # The following section has all the imports that the app requires to work.
 # datetime -> Date and time functions
@@ -181,7 +179,7 @@ def update_event_attendees(event_id: str, operation: str, user_class: object):
             sheet_check = gs.SHEET.worksheet(event_id)
         except:
             sheet_check = None
-        if sheet_check == None:
+        if sheet_check is None:
             # Credits: start of code, REF#1
             new_sheet = {
                 "requests": [{"addSheet": {"properties": {"title": event_id}}}]
@@ -356,20 +354,25 @@ def sign_up():
             )
     new_user = [username, email, first_name, last_name]
 
-    print("Are you signing up for workouts or martial arts?")
-    choice = input("Please input 1 for workouts and 2 for martial arts:\n")
+    while True:
+        print("Are you signing up for workouts or martial arts?")
+        choice = input("Please input 1 for workouts and 2 for martial arts:\n")
 
-    if choice == "1":
-        new_user.append("workout")
-        new_user.append(0)
-    elif choice == "2":
-        new_user.append("martial arts")
-        new_user.append("")
-        level_choice = input(
-            "Please enter 1 for Junior level, 2 for Teenage, "
-            "3 for Adult or 4 for Professional:\n"
-        )
-        new_user = martial_sign_up(level_choice, new_user)
+        if choice == "1":
+            new_user.append("workout")
+            new_user.append(0)
+            break
+        elif choice == "2":
+            new_user.append("martial arts")
+            new_user.append("")
+            level_choice = input(
+                "Please enter 1 for Junior level, 2 for Teenage, "
+                "3 for Adult or 4 for Professional:\n"
+            )
+            new_user = martial_sign_up(level_choice, new_user)
+            break
+        else:
+            print("Incorrect choice! Please try again.")
 
     updated_worksheet = gs.SHEET.worksheet("users")
     updated_worksheet.append_row(new_user)
@@ -416,7 +419,7 @@ def view_attendees(events_list: list):
             "TRX" in chosen_workout["summary"] or
             "Cross Training" in chosen_workout["summary"]
         ):
-            if sheet_check == None:
+            if sheet_check is None:
                 print("There are no registered users for this class.\n")
             else:
                 print("The following users are registered:")

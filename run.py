@@ -78,7 +78,7 @@ def display_user_data(user_class: object):
 
         now = datetime.datetime.utcnow().isoformat() + "Z"
         events_list = []
-        
+
         user_group = str(user_class.athlete_group)
         events_result = (
             gs.CALENDAR.events()

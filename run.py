@@ -24,11 +24,7 @@ def successful_sign_in(user_class: object):
     """
     choice = ""
     if user_class.athlete_type == "workout":
-        print(
-            "\n"
-            f"Welcome {user_class.first_name}! "
-            "Please choose an option:"
-        )
+        print("\n" f"Welcome {user_class.first_name}! " "Please choose an option:")
         print("1. Sign up for workout")
         print("2. View remaining workouts")
         print("3. Exit to main menu")
@@ -94,9 +90,7 @@ def display_user_data(user_class: object):
             events = events_result.get("items", [])
             for event in events:
                 events_list.append(event["id"])
-                start = event["start"].get(
-                    "dateTime", event["start"].get("date")
-                )
+                start = event["start"].get("dateTime", event["start"].get("date"))
                 start = start.replace("T", " ").replace(":00+02:00", "")
             print(f"Your next training session is on: {start}")
 
@@ -142,19 +136,14 @@ def workout_sign_up(user_class: object):
                 event["summary"],
             )
 
-    choice = input(
-        "Please input the number of the workout "
-        "you choose from above:\n"
-    )
+    choice = input("Please input the number of the workout " "you choose from above:\n")
     event_id = events_list[int(choice) - 1]
     chosen_workout = (
         gs.CALENDAR.events()
         .get(calendarId=gs.CALENDAR_ID, eventId=events_list[int(choice) - 1])
         .execute()
     )
-    start = chosen_workout["start"].get(
-        "dateTime", chosen_workout["start"].get("date")
-    )
+    start = chosen_workout["start"].get("dateTime", chosen_workout["start"].get("date"))
     start = start.replace("T", " ").replace(":00+02:00", "")
     print("You chose the following workout:\n")
     print(f"Name: {chosen_workout['summary']}, Date: {start}")
@@ -200,10 +189,7 @@ def update_event_attendees(event_id: str, operation: str, user_class: object):
             updated_worksheet.append_row([user_class.username])
             ud.update_workout(user_class)
             print("!!!")
-            print(
-                "Successfully signed up for workout! "
-                "Returning to main menu."
-            )
+            print("Successfully signed up for workout! " "Returning to main menu.")
             print("!!!\n")
             welcome()
 
@@ -273,7 +259,7 @@ def martial_sign_up(choice: str, new_user: list) -> list:
         for counter in counters:
             index += 1
             if counter < 12:
-                new_user.append("Junior "+str(index))
+                new_user.append("Junior " + str(index))
                 break
     elif choice == "2":
         new_user.append("Teenage MA")
@@ -286,10 +272,7 @@ def martial_sign_up(choice: str, new_user: list) -> list:
         sign_up()
     level_count = ud.count_athletes(new_user[6])
     if level_count >= 12:
-        print(
-            "Too many athletes in selected level. "
-            "Please contact the trainer!"
-        )
+        print("Too many athletes in selected level. " "Please contact the trainer!")
         print("Returning to main menu...\n")
         welcome()
     return new_user
@@ -312,8 +295,7 @@ def sign_up():
             )
         elif len(username) < 4 or len(username) > 15:
             print(
-                "Username should be between 4 and 15 characters. "
-                "Please try again."
+                "Username should be between 4 and 15 characters. " "Please try again."
             )
         else:
             break
@@ -328,10 +310,7 @@ def sign_up():
                 "type 'exit' to go to main menu."
             )
         elif len(email) < 10 or len(email) > 50:
-            print(
-                "Email should be between 10 and 50 characters. "
-                "Please try again."
-            )
+            print("Email should be between 10 and 50 characters. " "Please try again.")
         else:
             break
     first_name = input("Please enter your first name:\n")
@@ -377,9 +356,7 @@ def sign_up():
     updated_worksheet = gs.SHEET.worksheet("users")
     updated_worksheet.append_row(new_user)
 
-    print(
-        "Sign up complete! Please speak with the trainer to begin attending!"
-    )
+    print("Sign up complete! Please speak with the trainer to begin attending!")
     print("Returning to main menu...\n")
     welcome()
 
@@ -402,7 +379,7 @@ def view_attendees(events_list: list):
         event_id = events_list[int(choice) - 1]
         chosen_workout = (
             gs.CALENDAR.events()
-            .get(calendarId=gs.CALENDAR_ID, eventId=events_list[int(choice)-1])
+            .get(calendarId=gs.CALENDAR_ID, eventId=events_list[int(choice) - 1])
             .execute()
         )
         start = chosen_workout["start"].get(
@@ -416,16 +393,14 @@ def view_attendees(events_list: list):
         except:
             sheet_check = None
         if (
-            "TRX" in chosen_workout["summary"] or
-            "Cross Training" in chosen_workout["summary"]
+            "TRX" in chosen_workout["summary"]
+            or "Cross Training" in chosen_workout["summary"]
         ):
             if sheet_check is None:
                 print("There are no registered users for this class.\n")
             else:
                 print("The following users are registered:")
-                usernames = gs.SHEET.worksheet(
-                    chosen_workout["id"]
-                ).col_values(1)
+                usernames = gs.SHEET.worksheet(chosen_workout["id"]).col_values(1)
                 for username in usernames:
                     print(username)
             print("\n")
@@ -453,7 +428,8 @@ def get_events():
         new_date = (
             datetime.datetime(
                 int(chosen_year), int(chosen_month), int(chosen_day)
-            ).isoformat() + "Z"
+            ).isoformat()
+            + "Z"
         )
     except ValueError:
         print("Date incorrect. Please try again!")
@@ -536,9 +512,7 @@ def admin_display_user_data():
     """
     Displays chosen user data and provides options to change it.
     """
-    username = input(
-        "Please provide user's username or type 'exit' to go back:\n"
-    )
+    username = input("Please provide user's username or type 'exit' to go back:\n")
     user_index = user.find_user_index(username, "username")
     if username.lower() == "exit":
         admin_actions()
@@ -633,9 +607,7 @@ def welcome():
     elif user_answer == "3":
         admin_sign_in()
     else:
-        print(
-            f"{user_answer} is not an acceptable key. Please try again.\n"
-        )
+        print(f"{user_answer} is not an acceptable key. Please try again.\n")
         welcome()
 
 

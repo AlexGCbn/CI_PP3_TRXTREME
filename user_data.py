@@ -1,6 +1,4 @@
-"""
-File used to store functions that affect user data.
-"""
+"""File used to store functions that affect user data."""
 
 import user
 import gservices as gs

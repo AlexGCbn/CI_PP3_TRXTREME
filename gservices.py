@@ -1,6 +1,4 @@
-"""
-Google services module, used to store all Google services API data.
-"""
+"""Google services module, used to store all Google services API data."""
 
 # gspread -> Google Spreadsheets import
 # build -> Used to build calendar

@@ -78,27 +78,27 @@ def display_user_data(user_class: object):
 
         now = datetime.datetime.utcnow().isoformat() + "Z"
         events_list = []
-
-        if user_class.athlete_group == "Junior 1":
-            events_result = (
-                gs.CALENDAR.events()
-                .list(
-                    calendarId=gs.CALENDAR_ID,
-                    timeMin=now,
-                    maxResults=1,
-                    singleEvents=True,
-                    q="Junior 1",
-                )
-                .execute()
+        
+        user_group = str(user_class.athlete_group)
+        events_result = (
+            gs.CALENDAR.events()
+            .list(
+                calendarId=gs.CALENDAR_ID,
+                timeMin=now,
+                maxResults=1,
+                singleEvents=True,
+                q=user_group,
             )
-            events = events_result.get("items", [])
-            for event in events:
-                events_list.append(event["id"])
-                start = event["start"].get(
-                    "dateTime", event["start"].get("date")
-                )
-                start = start.replace("T", " ").replace(":00+02:00", "")
-            print(f"Your next training session is on: {start}")
+            .execute()
+        )
+        events = events_result.get("items", [])
+        for event in events:
+            events_list.append(event["id"])
+            start = event["start"].get(
+                "dateTime", event["start"].get("date")
+            )
+            start = start.replace("T", " ").replace(":00+02:00", "")
+        print(f"Your next training session is on: {start}")
 
 
 def workout_sign_up(user_class: object):

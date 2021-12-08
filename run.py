@@ -161,7 +161,8 @@ def workout_sign_up(user_class: object):
     new_choice = input("Do you want to register? Y/N\n")
     if new_choice.lower() == "y":
         update_event_attendees(event_id, "sign_up", user_class)
-    elif new_choice.lower() == "n":
+    else:
+        print("Did not register. Returning to user menu.\n")
         successful_sign_in(user_class)
 
 

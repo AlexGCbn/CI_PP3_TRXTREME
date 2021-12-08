@@ -400,9 +400,13 @@ def view_attendees(events_list: list):
     """
     choice = input(
         "Please input the number of the workout you "
-        "choose from above, or type 'exit' to return:\n"
+        "choose from above, or press any other key to return:\n"
     )
-    if choice.lower() != "exit":
+    try:
+        int(choice)
+    except ValueError:
+        choice = 0
+    if int(choice) != 0 and int(choice) <= len(events_list):
         event_id = events_list[int(choice) - 1]
         chosen_workout = (
             gs.CALENDAR.events()
@@ -443,6 +447,8 @@ def view_attendees(events_list: list):
                 if ma_user == chosen_workout["summary"]:
                     print(usernames[index - 1])
             print("\n")
+    else:
+        admin_actions()
 
 
 def get_events():

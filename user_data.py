@@ -58,8 +58,55 @@ def edit_item(index: int, user_class: object, item: str):
     @param: item str
     """
     new_range = "users!A" + str(index)
-    new_value = input("Provide new value:\n")
-    setattr(user_class, item, new_value)
+    while True:
+        if item == "athlete_group":
+            print("1. Junior 1")
+            print("2. Junior 2")
+            print("3. Junior 3")
+            print("4. Teenage MA")
+            print("5. Adult MA")
+            print("6. Professional MA")
+            new_value = input("Choice:\n")
+        if item == "workouts_left":
+            new_value = input("Provide new value:\n")
+            try:
+                int(new_value)
+                break
+            except ValueError:
+                print("Workouts should be a number! Please try again.")
+            # if new_value is not int:
+            #     print("Workouts should be a number! Please try again.")
+            # else:
+            #     break
+        elif item == "athlete_group":
+            if new_value == "1":
+                new_value = "Junior 1"
+                break
+            elif new_value == "2":
+                new_value = "Junior 2"
+                break
+            elif new_value == "3":
+                new_value = "Junior 3"
+                break
+            elif new_value == "4":
+                new_value = "Teenage MA"
+                break
+            elif new_value == "5":
+                new_value = "Adult MA"
+                break
+            elif new_value == "6":
+                new_value = "Professional MA"
+                break
+            else:
+                print("Input incorrect. Please try again.")
+        else:
+            new_value = input("Provide new value:\n")
+            if new_value == "" or len(new_value) < 2 or len(new_value) > 50:
+                print("Please provide a value greater than 2 characters and smaller than 50.")
+            else:
+                break
+
+    setattr(user_class, item, new_value)  
     item_str = item.replace("_", " ").capitalize()
     if user_class.athlete_type == "workout":
         gs.SHEET.values_update(

@@ -301,7 +301,10 @@ def sign_up():
     Creates a new user from the parameters provided.
     """
     while True:
-        username = input("Please enter your new username or 'exit' to return:\n")
+        username = input(
+            "Please enter your new username "
+            "or 'exit' to return:\n"
+        )
         user_exists = user.find_user_index(username, "username")
         if username.lower() == "exit":
             welcome()

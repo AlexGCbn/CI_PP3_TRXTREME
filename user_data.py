@@ -74,10 +74,6 @@ def edit_item(index: int, user_class: object, item: str):
                 break
             except ValueError:
                 print("Workouts should be a number! Please try again.")
-            # if new_value is not int:
-            #     print("Workouts should be a number! Please try again.")
-            # else:
-            #     break
         elif item == "athlete_group":
             if new_value == "1":
                 new_value = "Junior 1"
@@ -102,11 +98,14 @@ def edit_item(index: int, user_class: object, item: str):
         else:
             new_value = input("Provide new value:\n")
             if new_value == "" or len(new_value) < 2 or len(new_value) > 50:
-                print("Please provide a value greater than 2 characters and smaller than 50.")
+                print(
+                    "Please provide a value greater than "
+                    "2 characters and smaller than 50."
+                )
             else:
                 break
 
-    setattr(user_class, item, new_value)  
+    setattr(user_class, item, new_value)
     item_str = item.replace("_", " ").capitalize()
     if user_class.athlete_type == "workout":
         gs.SHEET.values_update(

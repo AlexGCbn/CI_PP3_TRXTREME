@@ -312,6 +312,8 @@ R0913: too-many-arguments -> As our classes were used for easy data manipulation
 R0903: too-few-public-methods -> Again same issue. Our classes were used for data manipulation, so they did not need any methods.  \
 ### user_data.py:
 ![user_data.py file Pylint validation](docs/validation/pylint_user_data.png)
+R1723 no-else-break -> There is an else after break, as the break is to stop our infinite loop.  \
+R0912 & R0915 -> Too many branches & statements for edit_item function, as it is needed to verify the input data. \
 </details>
 
 ### User stories testing:
@@ -483,6 +485,10 @@ R0903: too-few-public-methods -> Again same issue. Our classes were used for dat
    * Changed strategy. Instead of adding attendees to Google Calendar, data is stored in Sheets, where each event that is used has a sheet with the event ID as name, thus it is unique.
 5. pip3 freeze did not provide necessary requirements
    * Installed google services again with "--user" command, then the freeze command worked as intended.
+6. When creating a user and picking athlete type, there was no validation for empty input and it would accept it. After, when signing in with the user, it would give an error.
+   * Added validation for empty or incorrect input.
+7. When editing user data as admin, there was no validation. Thus, the issue from bug nr.6 could be replicated.
+   * Added validation for empty or incorrect input.
 
 
 ## Deployment:
